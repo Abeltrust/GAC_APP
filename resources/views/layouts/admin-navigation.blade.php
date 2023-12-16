@@ -49,9 +49,9 @@
                         </li>
                     @endif --}}
                     @else
-                        @if(auth()->user()->permission )
+                        @if(auth()->user()->role )
                            
-                        @if (auth()->user()->permission->message !=0 || auth()->user()->permission->edit !=0 || auth()->user()->permission->delete !=0 || auth()->user()->permission->payment !=0)
+                        @if (auth()->user()->role ==='admin')
                             
                         <li class="nav-item">
                             <a href="{{route('dashboard')}}" class="nav-link {{'dashboard'== request()->path() ? 'active' : ''}}">Dashboard</a>
@@ -59,13 +59,10 @@
                         <li class="nav-item">
                             <a href="{{route('members')}}" class="nav-link {{'members'== request()->path()?'active':''}}">Members</a>
                         </li>
-                        @if(auth()->user()->permission->message==1)
                             <li class="nav-item">
                                 <a href="{{route('messages')}}" class="nav-link {{'messages'== request()->path()?'active':''}}">Messages</a>
                             </li>
-                        @endif
-        
-                        <li class="nav-item">
+                            <li class="nav-item">
                             <a href="{{route('payments')}}" class="nav-link {{'payments'== request()->path()?'active':''}}">Payments</a>
                         </li>
         
@@ -73,12 +70,12 @@
                             <a href="{{route('settings')}}" class="nav-link {{'settings'== request()->path()?'active':''}} ">Settings</a>
                         </li>
 
-                        <li class="nav-item">
+                       {{-- <li class="nav-item">
                             <a href="{{route('notification')}}"  class="nav-link {{'notification'== request()->path()?'active':''}}">Notification</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('membership')}}"  class="nav-link {{'membership'== request()->path()?'active':''}}">Membership area</a>
-                        </li>
+                            <a href="{{route('profile')}}"  class="nav-link {{'profile'== request()->path()?'active':''}}">Membership area</a>
+                        </li>--}}
 
                         <div class="dropdown d-inline-block " >
                             <button type="button" class="btn header-item border rounded pb-1 menu-size"  id="page-header-user-dropdown"
@@ -87,7 +84,7 @@
                                 <span class="d-flex justify-content-between align-items-left" key="t-henry"
                                     style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     <span>
-                                        <strong>{{ Auth::user()->firstName }} {{ Auth::user()->lastName }} </strong> <br/>
+                                        <strong>{{ Auth::user()->name }} </strong> <br/>
                                         {{ Auth::user()-> role }}
                                     </span>
                                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block dropdown-toggle my-3 ml-8"></i>
@@ -107,18 +104,20 @@
                                         @csrf
                                     </form>
                                 </div>
+                                @endif
     
 
                                
-                        @else
-
+                        @if(auth()->user()->role ==='user')
                         <li class="nav-item">
                             <a href="{{route('notification')}}"  class="nav-link {{'notification'== request()->path()?'active':''}}">Notification</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('membership')}}"  class="nav-link {{'membership'== request()->path()?'active':''}}">Membership area</a>
+                            <a href="{{route('profile')}}"  class="nav-link {{'profile'== request()->path()?'active':''}}">Profile</a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="{{route('settings')}}" class="nav-link {{'settings'== request()->path()?'active':''}} ">Settings</a>
+                        </li>
                         <li class="nav-item">
                             <a class="btn btn-primary px-4" href=""
                             onclick="event.preventDefault();
@@ -192,7 +191,7 @@
                         <a href="{{route('notification')}}"  class="nav-link {{'notification'== request()->path()?'active':''}}">Notification</a>
                     </li>
                         <li class="nav-item">
-                            <a href="{{route('membership')}}"  class="nav-link {{'membership'== request()->path()?'active':''}}">Membership area</a>
+                            <a href="{{route('profile')}}"  class="nav-link {{'profile'== request()->path()?'active':''}}">Membership area</a>
                         </li>
 
                         <li class="nav-item">

@@ -56,10 +56,10 @@
             <div>
                 <select name="memberSearch" id="memberSearch" class="form-control  form-select-2 form-select">
               
-                    <option value="Select SCN" disabled selected>Select SCN</option>
-                    @foreach($scnValues as $scn)
-                        <option value="{{ $scn->scn }}">{{ $scn->scn }}</option>
-                    @endforeach
+                    <option value="Select SCN" disabled selected>Select Staff Id</option>
+                     @foreach($scnValues as $scn)
+                        <option value="{{ $scn->scn }}">{{ $scn->StaffID}}</option>
+                    @endforeach 
                 </select>
             </div>
         </div>
@@ -68,23 +68,21 @@
                 <thead>
                   <tr>
                     <th class=" h-table">Name</th>
-                    <th class=" h-table">SCN</th>
                     <th class=" h-table">Phone Number</th>
                     <th class=" h-table">Email</th>
-                    <th class=" h-table">Year of call</th>
+                    <th class=" h-table">Department</th>
                   </tr>
                 </thead>
                 <tbody >
                 @foreach($users as $user)
                   <tr >
-                    <td >{{$user -> lastName.' '.$user -> lastName}}</td>
-                    <td>{{$user -> scn}}</td>
+                    <td >{{$user -> name}}</td>
                     <td>{{$user -> phoneNumber}}</td>
                     <td>
                         {{$user -> email}}
                     </td>
                     <td>
-                        {{$user -> yearOfCallToBar}}
+                        {{$user -> Department}}
                     </td>
                     <td>
                       <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>

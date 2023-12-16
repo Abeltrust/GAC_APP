@@ -6,7 +6,7 @@
                     <div class="col-md-12">
                         <div class="reg-section-content-image">
                             <img src="{{asset('NBA/public/assets/home/logo-2.png')}}" alt="">
-                            <h2>Ikeja branch</h2>
+                            <h2>Gombe State University</h2>
                         </div>
                     </div>
     
@@ -40,7 +40,7 @@
                     <div class="col-md-3 footer-col">
                         <ul class="footer-ul">
                             <li>
-                                <a href="#">Pay your bar dues</a>
+                                <a href="#">Apply Loan</a>
                             </li>
                             <li>
                                 <a href="#">Membership sign up</a>
@@ -50,10 +50,10 @@
                     <div class="col-md-3  footer-col">
                         <ul class="footer-ul">
                             <li>
-                                <a href="#">info@nbaikeja.com </a>
+                                <a href="#">info@GomAcadCoopsGSU.com </a>
                             </li>
                             <li>
-                                <a href="#">+234 703 991 4767</a>
+                                <a href="#">+234 7043079022</a>
                             </li>
                         </ul>
                         
@@ -84,7 +84,7 @@
                     </div>
                     <div class="border-top mt-5 mb-4"></div>
                     <div class="col-md-12 text-center copyright">
-                        <p>Copyright 2023. Ikeja branch, Nigerian Bar Association. </p>
+                        <p>Copyright 2023. Gombe State University, GomAcad Coops. </p>
                     </div>
     
                 </div>

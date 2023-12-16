@@ -1,13 +1,14 @@
 
 
 @extends('layouts.guest')
+
 @section('content')
 
 <div class="row reg-sec">
-    <div class="col-md-12 col-lg-6 reg-section-1">
+    <!-- <div class="col-md-12 col-lg-6 reg-section-1">
         <div class="reg-section-content-image">
             <img src="{{asset('NBA/public/assets/home/logo-2.png')}}" alt="">
-            <h2>Ikeja branch</h2>
+            <h2>Gombe State University</h2>
         </div>
 
         <div>
@@ -26,7 +27,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-12 col-lg-6 form-login">
         <h2 class="header-text">Sign in</h2>
         <h6 class="welcome-text">Welcome back!</h6>
@@ -35,7 +36,7 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email / Phone / SCN</label>
+                    <label for="email" class="form-label">Email</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" placeholder="name@mail.com" >
                     @error('email')
                         <span class="invalid-feedback" role="alert">

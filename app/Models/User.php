@@ -24,19 +24,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-       'scn',           
-       'title',       
-       'role',           
-       'firstname',      
-       'lastName' ,      
-       'middlename',     
-       'phoneNumber',     
-       'yearOfCallToBar', 
-       'gender',          
-       'organization',    
-       'address',         
-       'email',           
-       'password',        
+        'name',
+        'email',
+        'password',
+        'phoneNumber', 
+        'gender', 
+        'maritalStatus', 
+        'userImage',
+        'staffId',
+        'Department',
+        'monthlyDeduction', 
+        'nextOfKinFullName',
+        'nextOfKinPhoneNumber', 
+        'nextOfKinAddress',
+        'role',
     ];
 
     /**
@@ -58,12 +59,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function permission():HasOne
-    {
-        return $this->hasOne(Permission::class,'scn','scn');
-    }
-    public function paymentDetails():HasMany
-    {
-        return $this->hasMany(PaymentDetails::class,'scn','scn');
-    }
+    // public function permission():HasOne
+    // {
+    //     return $this->hasOne(Permission::class,'scn','scn');
+    // }
+    // public function paymentDetails():HasMany
+    // {
+    //     return $this->hasMany(PaymentDetails::class,'scn','scn');
+    // }
 }

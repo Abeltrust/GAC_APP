@@ -14,7 +14,7 @@ class UserApi extends Model
         'name',
         'email',
         'phone',
-        'scn',
-        'yoc',
+        'staffid',
+        'department',
     ];
 }

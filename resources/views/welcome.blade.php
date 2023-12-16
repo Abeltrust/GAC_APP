@@ -50,37 +50,15 @@
 @section('content')
 
 <div class="row reg-sec">
-    <div class="col-md-12 col-lg-6 reg-section-1">
-        <div class="reg-section-content-image">
-            <img src="{{asset('/assets/home/logo-2.png')}}" alt="">
-            <h2>Ikeja branch</h2>
-        </div>
-
-        <div>
-            <ul class="list">
-                <li class="list-item">
-                    <div class="box-rounded-dot"></div>
-                    Pay your bar dues
-                </li>
-                <li class="list-item">
-                    <div class="box-rounded-dot"></div>
-                    Membership sign up
-                </li>
-                <li class="list-item">
-                    <div class="box-rounded-dot"></div>
-                    FAQs
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-md-12 col-lg-6 form-login">
+       
+    <div class="col-md-12 col-lg-12 form-login">
         <h2 class="header-text">Sign in</h2>
         <h6 class="welcome-text">Welcome back!</h6>
         <div class="">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email / Phone / SCN</label>
+                    <label for="email" class="form-label">Email</label>
                     <input type="text" class="form-control @error('email') is-invalid @enderror"  name="email" value="{{ old('email') }}" placeholder="name@mail.com" >
                     @error('email')
                         <span class="invalid-feedback" role="alert">

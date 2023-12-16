@@ -95,12 +95,7 @@
             <select name="recipient"  class="form-control form-select  @error('recipient') is-invalid @enderror">
                     <option selected disabled>Choose</option>
                     <option value="all"> All</option>
-                    <option value="1 - 4 years"> 1 - 4 years</option>
-                    <option value="5 - 9 years"> 5 - 9 years</option>
-                    <option value="10 - 14 years"> 10 - 14 years</option>
-                    <option value="15 - 19 years"> 15 - 19 years</option>
-                    <option value="20 - above"> 20 years & above</option>
-                    <option value="SAN & Benchers"> SAN & Benchers</option>
+                    
             </select>
             @error('recipient')
                 <span class="invalid-feedback" role="alert">

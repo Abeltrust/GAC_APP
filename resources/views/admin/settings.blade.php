@@ -133,14 +133,14 @@
                        <div class="mb-4 row">
                             <label for="" class="col-md-4 form-label">Full name</label>
                             <div class="col-md-8">
-                              <input type="text" class="form-control" value="{{Auth::user()->firstName }} {{ Auth::user()->middlename}} {{ Auth::user()->lastName}}" readonly>
+                              <input type="text" class="form-control" value="{{Auth::user()->name}}" readonly>
                             </div>
                           </div>
 
                           <div class="mb-4 row">
-                            <label for="" class="col-md-4 form-label">SCN</label>
+                            <label for="" class="col-md-4 form-label">Staff ID</label>
                             <div class="col-md-8">
-                              <input type="text" class="form-control" value="{{Auth::user()->scn }}" readonly>
+                              <input type="text" class="form-control" value="{{Auth::user()->staffId }}" readonly>
                             </div>
                           </div>
 
@@ -159,9 +159,9 @@
                           </div>
 
                           <div class="mb-3 row">
-                            <label for="" class="col-md-4 form-label">Year of call</label>
+                            <label for="" class="col-md-4 form-label">Department</label>
                             <div class="col-md-8">
-                              <input type="text" class="form-control" value="{{Auth::user()-> yearOfCallToBar }}" readonly>
+                              <input type="text" class="form-control" value="{{Auth::user()-> Department }}" readonly>
                             </div>
                           </div>
                     </form>
@@ -226,7 +226,7 @@
                             <thead>
                               <tr>
                                 <th class=" h-table">Name</th>
-                                <th class=" h-table">SCN</th>
+                                <th class=" h-table">Staff ID</th>
                                 <th class=" h-table">Access type</th>
                                 <th class=" h-table">Action</th>
                               </tr>
@@ -234,40 +234,14 @@
                             <tbody>
                               @foreach($users as $user)
                                 <tr>
-                                  <td >{{$user -> lastName.' '.$user -> firstName.' '.$user -> middlename}}</td>
-                                  <td>{{$user -> scn}}</td>
-                                  <td>
-                                    @if($user->permission)
-                                      @if ($user->permission->message)
-                                          Send messages,
-                                      @endif
-
-                                      @if ($user->permission->payment)
-                                          Set payment,
-                                      @endif
-
-                                      @if ($user->permission->edit)
-                                          Edit,
-                                      @endif
-
-                                      @if ($user->permission->delete)
-                                          Delete
-                                      @endif
-                                    @endif
-                                  </td>
+                                  <td >{{$user -> name}}</td>
+                                  <td>{{$user -> staffId}}</td>
+                                  <td> {{$user->role}}</td>
                                   <td class="">
 
-                                      @if (auth()->user()->permission)
-                                        @if (auth()->user()->permission->edit)
-                                        <button class="btnESubadmin btn-view py-2 px-4"    data-id="{{$user -> scn}}" > Edit</button>
-                                          
-                                        @endif
-                                        @if (auth()->user()->permission->delete)
-                                          <button class="btn-view btnDSubadmin py-2 px-4"    data-id="{{$user -> scn}}"  > Delete</button>
-                                        @endif
-                                      @elseif (auth()->user()->role=='admin')
-                                      <button class="btnESubadmin btn-view py-2 px-4"    data-id="{{$user -> scn}}" > Edit</button>
-                                      <button class="btn-view btnDSubadmin py-2 px-4"    data-id="{{$user -> scn}}"  > Delete</button>
+                                      @if(auth()->user()->role=='admin')
+                                      <button class="btnESubadmin btn-view py-2 px-4"    data-id="{{$user -> staffId}}" > Edit</button>
+                                      <button class="btn-view btnDSubadmin py-2 px-4"    data-id="{{$user -> staffId}}"  > Delete</button>
                                       @endif
 
                                     

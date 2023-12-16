@@ -14,26 +14,31 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController; 
 use App\Http\Controllers\PermissionController;  
 use App\Http\Controllers\SetPaymentController;  
-
-
+use App\Http\Controllers\RequisitionController;  
+use App\Models\Requisition;
 Route::get('/', function () {
    
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    $users = User::with([
-        'permission',
-        'paymentDetails'
-        ])->where('role','!=','admin')->paginate(5);
-        $payment = setPayment::all();
-
+    $users = User::where('role','!=','admin')->paginate(5);
+    $request  = Requisition::where('status','=','approve')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestP = Requisition::where('status','=','pending')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestD = Requisition::where('status','=','decline')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestA  = Requisition::where('status','=','approve')->paginate(5);
+    $requestPA = Requisition::where('status','=','pending')->paginate(5);
+    $requestDA = Requisition::where('status','=','decline')->paginate(5);
+    
+    // with([
+    //     'permission'
+    //     ]);
     $total= PaymentDetails::where('status','successful')->sum('amount');
-    return view('dashboard',compact('users','payment','total'));
-})->middleware(['auth', 'verified','hasPermission'])->name('dashboard');
+    return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA'));
+})->middleware(['auth'])->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/membership',[MembershipController::class,'index'])->name('membership');
+Route::middleware(['auth','hasPermission'])->group(function () {
+    Route::get('/profile',[MembershipController::class,'index'])->name('profile');
     Route::get('/notification/pagination/paginate-data',[NotificationController::class,'pagination']);
     Route::get('/notification/search',[NotificationController::class,'searchNotification'])->name('search.notification');
     Route::get('/notification',[NotificationController::class,'index'])->name('notification');
@@ -49,14 +54,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/rave/callback', [PaymentController::class, 'callback'])->name('callback');
 
     Route::get('/receipt/{id}', [MembershipController::class, 'receipt'])->name('receipt');
-
+    Route::post('/application',[RequisitionController::class,'store'])->name('application.store');
+    
 });
 
     Route::middleware(['auth','hasPermission'])->group(function () {
-    // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/members',[MembersController::class,'index'])->name('members');
+        
+    Route::get('/profile',[MembershipController::class,'index'])->name('profile');
+   Route::get('/members',[MembersController::class,'index'])->name('members');
     Route::get('/members/pagination/paginate-data',[MembersController::class,'pagination']);
     Route::get('/members/search',[MembersController::class,'searchMembers'])->name('members.search');
     

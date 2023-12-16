@@ -52,7 +52,7 @@ class LoginRequest extends FormRequest
         //     ]);
         // }
      
-        $user = User::where('email', $this->email)->orWhere('phoneNumber',$this->email)->orWhere('scn',$this->email)->first();
+        $user = User::where('email', $this->email)->orWhere('phoneNumber',$this->email)->orWhere('staffID',$this->email)->first();
         // dd($user);
         if(!$user || !Hash::check($this->password, $user->password)){
             throw ValidationException::withMessages([

@@ -15,10 +15,8 @@ class PaymentController extends Controller
      */
     public function index()
     { 
-        $users = User::with([
-            'paymentDetails'
-            ])->where('role','!=','admin')->get();
-        $scnValues = User::where('role','!=','admin')->select('scn')->get();
+        $users = User::where('role','!=','admin')->get();
+        $scnValues = User::where('role','!=','admin')->select('staffID')->get();
         // $paymentDetails = PaymentDetails::all();
        return view('admin.payment',compact('users','scnValues'));
     }

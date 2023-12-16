@@ -11,29 +11,10 @@
                       <tbody>
                         @foreach($users as $user)
                           <tr>
-                            <td >{{$user -> lastName.' '.$user -> firstName.' '.$user -> middlename}}</td>
-                            <td>{{$user -> scn}}</td>
+                            <td >{{$user -> name}}</td>
+                            <td>{{$user -> staffId}}</td>
                             <td>
-                              @if($user->permission)
-
-                                @if ($user->permission->message)
-                                    Send messages,
-                                @endif
-
-                                @if ($user->permission->payment)
-                                    Set payment,
-                                @endif
-
-                                @if ($user->permission->edit)
-                                    Edit,
-                                @endif
-
-                                @if ($user->permission->delete)
-                                    Delete
-                                @endif
-                              @else
-                                No Permission
-                              @endif
+                               {{user->role}}
                             </td>
                             <td class="">
                                 <button class="btnESubadmin btn-view py-2 px-4"    data-id="{{$user -> scn}}" > Edit</button>

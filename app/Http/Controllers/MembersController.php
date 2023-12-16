@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Requisition;
 use App\Models\PaymentDetails;
 
 class MembersController extends Controller
@@ -15,8 +16,10 @@ class MembersController extends Controller
     public function index()
     {
         $users = User::where('role','!=','admin')->paginate(5);
-        $scnValues = User::where('role','!=','admin')->select('scn')->get();
+        $scnValues = User::where('role','!=','admin')->select('staffID')->get();
+        $data =Requisition::where('applied_by',auth()->user()->email);
         $pageTitle ='Members';
+
         // return $scnValues;
        return view('admin.members',compact('users','scnValues','pageTitle'));
     }
@@ -27,7 +30,7 @@ class MembersController extends Controller
     }
 
     public function searchMembers(Request $request){
-        $users = User::where('scn',$request->search_string)->orderBy('created_at','desc');
+        $users = User::where('staffId',$request->search_string)->orderBy('created_at','desc');
         if($users->count()>=1){
             return view('admin.member_pagination',compact('users'))->render();
         }else{
@@ -42,11 +45,12 @@ class MembersController extends Controller
     {
         
         $user = User::find($id);
-        $scn = $user->scn;
+        $scn = $user->staffId;
+        $data = Requisition::where('applied_by',auth()->user()->email);
         $paymentDetails = PaymentDetails::all();
         
         
-        return view('admin.member-profile',compact('user','paymentDetails'));
+        return view('admin.member-profile',compact('user','data'));
     }
     
     public function edit( $member)

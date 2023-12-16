@@ -19,9 +19,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        $users = User::with([
-            'permission'
-            ])->where('role','!=','admin')->paginate(10);
+        $users = User::where('role','!=','admin')->paginate(10);
         // $permission = Permission::all();
 
         // return $users;

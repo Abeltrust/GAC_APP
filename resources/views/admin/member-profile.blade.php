@@ -48,99 +48,91 @@ $('.deleteUser').on('click touchstart tap',function(e) {
 });
 </script>
 @section('content')
-<div class="container mt-5 px-4 px-md-0">
-   <div class="row d-flex flex-sm-row justify-content-between mb-5">
-                <div class="col-sm-5">
-                   <h3 class="table-title-3"> {{$user->lastName.' '.$user->firstName.' '.$user->middlename}}</h3>
+<div class="container mt-4 px-4 px-md-0">
+        <div class="text-center">
+            <img src="assets/images/avatar-2.jpg" class="rounded-circle mb-3" style="width: 150px; height: 150px;" alt="User Image">
+            <h3>{{Auth::user()-> name}}</h3>
+            <!-- <div class="mt-2">
+                <span class="badge bg-success py-2">Verified</span>
+                <span class="badge bg-warning py-2 text-dark">Pending</span>
+            </div> -->
+           
+        </div>
+        <div class="row gap-4 mt-4 justify-content-center align-item-center">
+                <div class="col-md-3 card-dashboard">
+                    <span
+                    class="larg-number" 
+                        data-bs-toggle="popover" 
+                        title="Total amount generated" 
+                        data-bs-content="<h6></h6>"
+                    >0</span>
+                    <p>Total number of Request</p>
                 </div>
-               
-                    <div class="d-flex col-sm-3 mt-2">
-                    <button class="btn btn-norm editUser" data-bs-toggle="modal" data-id="{{$user->id}}" type="button">
-                        Edit
-                    </button>
-               
-                    <button class="btn btn-norm deleteUser" data-bs-toggle="modal" data-id="{{$user->id}}" type="button">
-                        Delete
-                    </button>
-               
-                    <a href="{{route('message.create')}}" role="button" class="btn  btn-normal">
-                        Send message
-                    </a>
+                <div class="col-md-3 card-dashboard">
+                    <span
+                    class="larg-number" 
+                        data-bs-toggle="popover" 
+                        title="Total amount generated" 
+                        data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
+                        &#8358;{{ number_format(1000) }}</span>
+                    <p>Total amount Paid this month</p>
+                </div>
+                <div class="col-md-3 card-dashboard">
+                    <span 
+                        class="larg-number" 
+                        data-bs-toggle="popover" 
+                        title="Total amount generated" 
+                        data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
+                        &#8358;{{ number_format(1000) }}
+                    </span>
+                    <p>Total amount generated</p>
+                </div>
             </div>
-        </div>
-        <div class="d-flex d-lg-flex flex-lg-row row">
-            <div class="col-md-2 mb-2">
-                <label class="form-view-label text-uppercase">SCN</label>
-                <div class="form-value-label scn" id="">{{$user->scn}}</div>
-            </div>
-            <div class="col-md-2 mb-2">
-                <label class="form-view-label">Phone number</label>
-                <div class="form-value-label amount" id="">{{$user->phoneNumber}}</div>
-            </div>
-            <div class="col-md-4 mb-2">
-                <label class="form-view-label">Email</label>
-                <div class="form-value-label amount" id="">{{$user->email}}</div>
-            </div>
-            <div class="col-md-2 mb-2">
-                <label class="form-view-label text-uppercase">YEAR OF CALL</label>
-                <div class="form-value-label yearOfCall" id="">{{$user->yearOfCallToBar}}</div>
-            </div>
-        </div>
-    <div class="row mt-5">
-        <div class="d-flex align-items-center justify-content-between mb-3">
-            <h4 class="table-title-2">Payment History</h4>
-        </div>
-        <div class="col-md-12 table-responsive" >
-        <table class="table table-borderless table-striped w-100">
+        <div class="mt-4">
+           <div class="d-flex justify-content-between">
+             <h4>Requisition Information</h4>  
+             <!-- <div class="mt-2">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                   Apply for Loan
+                </button>
+             </div> -->
+           </div>
+          @if(!is_null($data))
+           <span>
+              No application data
+           </span>
+           @else
+           <table class="table nowrap">
                 <thead>
-                  <tr>
-                    <th class=" h-table">Date</th>
-                    <th class=" h-table">Amount paid</th>
-                    <th class=" h-table">Status</th>
-                    <th class=" h-table">Action</th>
-                  </tr>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Item </th>
+                        <th>Qnty</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
                 </thead>
                 <tbody>
+                @foreach($data as $index => $d)
                     <tr>
-                   
-                     @foreach($paymentDetails as $paymentDetail)
-                         @if($paymentDetail ->scn === $user -> scn )
-                            <td>
-                                 {{ $paymentDetail -> transaction_date}}
-                            </td>
-                           <td>
-                           &#8358;{{ number_format( $paymentDetail->amount )}}
-                            </td>
-                            <td>
-                            @if($paymentDetail->status ==='successful')
-                                <span class="badge bg-success-badge py-2 px-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                    Successful
-                                </span>
-                            @elseif($paymentDetail->status ==='pending')
-                                <span class="badge bg-warning-badge py-2 px-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                    Pending
-                                </span>
-                            @else
-                               <span class="badge bg-danger-badge py-2 px-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                    Decline
-                                </span>
-                            @endif
-                            </td>
-                        <td>
-                           <button class="btn btn-view btnpaymentView" type="button" data-bs-toggle="modal" data-id="{{Auth::user() -> id}}" > View</button>
-                        </td>
-                        @endif
-                     @endforeach
-                     
-                    </tr> 
+                        <td>{{$index+1 }}</td>
+                        <td>{{$d -> item}}</td>
+                        <td>{{$d -> quantity}}</td>
+                        <td>&#8358;{{$d -> total}} </td>
+                      @if($d -> status == 'approve')
+                        <td><span class="btn-primary text-light p-1 rounded"> Approved </span></td>
+                        @elseif($d -> status =='pending')
+                         <td><span class="btn-warning text-light p-1 rounded"> pending </span></td>
+                         @else
+                           <td><span class="btn-danger text-light p-1 rounded"> Declined </span></td>
+                       @endif
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+            @endif
         </div>
     </div>
-</div>
 @include('admin.modals')
 @include('admin.paymentModal')
 @endsection

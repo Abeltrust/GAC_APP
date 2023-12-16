@@ -15,18 +15,18 @@ class UserHasPermission
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        if(auth()->user()->permission){
-            if(auth()->user()->permission->message==1 || auth()->user()->permission->delete==1 || auth()->user()->permission->edit==1 || auth()->user()->permission->payment==1){
+        if(auth()->user()->role){
+            if(auth()->user()->role=='admin' ){
                 return $next($request);
             }else if(auth()->user()->role=='admin'){
                 return $next($request);
             }else{
-                return redirect()->route('membership');
+                return redirect()->route('profile');
             }
         }else if(auth()->user()->role=='admin'){
             return $next($request);
         }else{
-            return redirect()->route('membership');
+            return redirect()->route('profile');
         }
     }
 }

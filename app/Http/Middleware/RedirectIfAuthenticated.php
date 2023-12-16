@@ -21,9 +21,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if(auth()->user()->permission){
+                if(auth()->user()->role){
                     
-                    if(auth()->user()->permission->message==1 || auth()->user()->permission->delete==1 || auth()->user()->permission->edit==1 || auth()->user()->permission->payment==1){
+                    if(  auth()->user()->role=='admin'){
            
                        return redirect()->route('dashboard');
    

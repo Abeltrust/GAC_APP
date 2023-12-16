@@ -39,58 +39,80 @@ class RegisteredUserController extends Controller
 
        
         $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'string', 'max:255'],
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'middlename' => ['string', 'max:255'],
-            'scn' => ['string', 'max:255',],
-            'address' => ['string', 'max:255'],
-            'gender' => ['required','string', 'max:255'],
-            'organization' => ['string', 'max:255'],
-            'year' => ['string', 'max:255'],
-            'phonenumber' => ['required','string', 'max:255',],
-            'email' => ['required', 'string', 'email', 'max:255','unique:users'],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phoneNumber' => ['required','string','max:255'],
+            'gender' => ['required','string','max:255'],
+            'maritalStatus' => ['required','string','max:255'],
+            // 'userImage' => ['file','image:jpeg,png,jpg,','max:3072'],
+            'staffId' => ['required','string','max:255'],
+            'Department' => ['required','string','max:255'],
+            'monthlyDeduction' => ['required','string','min:3'],
+            'nextOfKinFullName' => ['required','string','max:255'],
+            'nextOfKinPhoneNumber' => ['required','string','max:255'],
+            'nextOfKinAddress' => ['required','string','max:255']
         ]);
 
         
         $phone= $request->phonenumber;
         $email= $request->email;
-
-        // $userCheck = UserApi::where(function($query) use ($phone, $email) {
-		// 	$query->where('email',$email)
-		// 				->orWhere('phone',$phone);
-        //             })->get();
-
-        // return $userCheck;
+       // dd($file = $request->file('userImage'));
+        if ($request->hasFile('userImage')) {
+            $file = $request->file('userImage');
+        $filePath = $file->store('assets\images', 'public');
+       
         $userCheck = UserApi::where('email',$email)->orWhere('phone',$phone)->first();
-        // dd($userCheck);
-        if(!is_null($userCheck)){
+       $roleCheck =User::where('role','!=admin')->first();
+       
+        if(is_null($userCheck)){
+            if($roleCheck){
             $user = new User();
-            $user -> scn            = $request -> scn;
-            $user -> title          = $request ->title;
-            $user -> role           = $request ->role;
-            $user -> firstname      = $request ->firstname;
-            $user -> lastName       = $request ->lastname;
-            $user -> middlename     = $request ->middlename;
-            $user -> phoneNumber    = $request ->phonenumber;
-            $user -> yearOfCallToBar= $request ->year;
-            $user -> gender         = $request ->gender;
-            $user -> organization   = $request ->organization;
-            $user -> address        = $request ->address;
+            $user -> name           = $request -> name;
             $user -> email          = $request ->email;
             $user -> password       = Hash::make($request->password);
+            $user -> userImage      = $filePath;
+            $user -> maritalStatus  = $request ->maritalStatus;
+            $user -> staffId        = $request ->staffId;
+            $user -> Department     = $request ->Department;
+            $user -> gender         = $request ->gender;
+            $user -> phoneNumber    = $request ->phoneNumber;
+            $user -> monthlyDeduction = $request ->monthlyDeduction;
+            $user -> nextOfKinFullName = $request ->nextOfKinFullName;
+            $user -> nextOfKinPhoneNumber= $request ->nextOfKinPhoneNumber;
+            $user -> nextOfKinAddress   = $request ->nextOfKinAddress;
+            $user -> role   = 'admin';
             $user ->save();
-    
+            }else{
+                $user = new User();
+            $user -> name           = $request -> name;
+            $user -> email          = $request ->email;
+            $user -> password       = Hash::make($request->password);
+            $user -> userImage      = $filePath;
+            $user -> maritalStatus  = $request ->maritalStatus;
+            $user -> staffId        = $request ->staffId;
+            $user -> Department     = $request ->Department;
+            $user -> gender         = $request ->gender;
+            $user -> phoneNumber    = $request ->phoneNumber;
+            $user -> monthlyDeduction = $request ->monthlyDeduction;
+            $user -> nextOfKinFullName = $request ->nextOfKinFullName;
+            $user -> nextOfKinPhoneNumber= $request ->nextOfKinPhoneNumber;
+            $user -> nextOfKinAddress   = $request ->nextOfKinAddress;
+            $user -> role   = 'user';
+            $user ->save();
+            }
             event(new Registered($user));
         
             Auth::login($user);
             toast('Registration Successful! You\'re Welcome..', 'success');
-            return redirect(RouteServiceProvider::HOME) ->with('success','Registered Successfully');
+            return redirect('/profile') ->with('success','Registered Successfully');
         }else{
-            toast('User does not exist', 'error')->timerProgressBar();
+            toast('User already exist', 'error')->timerProgressBar();
             return redirect()->route('register');
         }
+    }else{
+        toast('No image Uploaded', 'error')->timerProgressBar();
+        return redirect()->route('register');
+    }
     }
 }

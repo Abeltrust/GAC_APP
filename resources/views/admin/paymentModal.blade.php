@@ -15,13 +15,13 @@
 
                                     <div class="col-md-4">
                                     <input type="hidden" id="scnID" name="scn">
-                                        <label class="form-view-label text-uppercase">SCN</label>
+                                        <label class="form-view-label text-uppercase">Staff ID</label>
                                         <div class="form-value-label scn" id=""></div>
                                     </div>
 
                                     <div class="col-md-4">
                                     <input type="hidden" id="yearOfCall" name="yearOfCall">
-                                        <label class="form-view-label text-uppercase">YEAR OF CALL</label>
+                                        <label class="form-view-label text-uppercase">Department</label>
                                         <div class="form-value-label yearOfCall" id=""></div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                             </div>
 
                             <div class="modal-footer  ">
-                                <button type="button"  class="hide-on-print printModalContent btn btn-primary w-100 btn-custom-h">Download receipt</button>
+                                <button type="button"  class="hide-on-print printModalConten btn btn-primary w-100 btn-custom-h">Download receipt</button>
                             </div>
       </div>
     </div>

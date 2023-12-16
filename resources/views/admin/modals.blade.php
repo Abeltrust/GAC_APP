@@ -1,5 +1,5 @@
 <div class="modal fade" tabindex="-1" id="setPaymentRangeModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Set payment range</h5>
@@ -10,76 +10,20 @@
                     <div class="modal-body" >
                     
                         <div id="ref-add-field">
-                                <div class=" d-flex d-lg-flex flex-lg-row flex-column justify-content-evenly gap-2" id="field0">
-                                <div class="mb-2 ">
-                                    <label class="form-label mb-2 ">Year of Call To Bar</label>
-                                    <select id="yearOfCallToBar0" required  class="form-control mt-1 yearOfCallToBar" name="yearOfCallToBar[]">
-                                        <option disabled selected> Select year</option>
-                                        <option value="1 - 4 years"> 1 - 4 years</option>
-                                        <option value="5 - 9 years"> 5 - 9 years</option>
-                                        <option value="10 - 14 years"> 10 - 14 years</option>
-                                        <option value="15 - 19 years"> 15 - 19 years</option>
-                                        <option value="20 years & above"> 20 years & above</option>
-                                        <option value="SAN & Benchers"> SAN & Benchers</option>
-                                    </select>
-                                    @error('yearOfCallToBar[]')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Branch dues</label>
+                            <div class=" d-flex d-lg-flex flex-lg-row flex-column justify-content-evenly gap-2" id="field0">
+                               
+                                <div class="mb-2 w-100">
+                                    <label class="form-label">Amount</label>
                                     <div class="mb-3 mt-1">
-                                        <input type="number" id="branch0" data-id="0" name="branch[]"  class="form-control branchfield" placeholder="Enter amount">
+                                        <input type="number" id="Amount" data-id="0" name="Amount"  class="form-control branchfield" placeholder="Enter minimum amount to be deducted">
                                     </div>
-                                    @error('name')
+                                    @error('Amount')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2">
-                                    <label class="form-label">ID card</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" id="card0" data-id="0" name="card[]"  class="form-control cardfield" placeholder="Enter amount">
-                                    </div>
-                                    @error('name')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Insurance</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" id="insurance0" data-id="0" name="insurance[]"  class="form-control insurancefield" placeholder="Enter amount">
-                                    </div>
-                                    @error('name')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Total</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" readonly id="total0" data-id="0" name="total[]"  class="form-control totalfield" placeholder="Enter amount">
-                                    </div>
-                                    @error('name')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                        </div>
-                    
-                    </div>
-                        <div class="row">
-                            <div class="col-md-12 d-flex justify-content-between">
-                                <a class="btn text-color" id="add_more_payment" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="currentColor" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg>
-                                    Add another range
-                                </a>
-
-                                <a class="btn text-danger" id="remove_more_payment" role="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 12.998H5v-2h14z"/></svg>
-                                    remove range
-                                </a>
-    
                             </div>
-                        </div>
-                    </div>   
+                      </div> 
+                  </div>    
                 <div class="modal-footer  ">
                     <button type="submit" class="btn btn-primary w-100 btn-custom-h">Set payment</button>
                 </div>
@@ -99,59 +43,18 @@
             @csrf
                     <div class="modal-body" >
                     <div class=" d-flex d-lg-flex flex-lg-row flex-column justify-content-evenly gap-2" id="field0">
-                                <div class="mb-2 ">
-                                    <input type="hidden" name="yearOFCall" id="yearOFCall"> 
-                                    <label class="form-label mb-2 ">Year of Call To Bar</label>
-                                    <select id="yoc" required  class="form-control mt-1 yearOfCallToBar" name="yearOfCallToBar">
-                                       
-                                        <option value="1 - 4 years" disabled> 1 - 4 years</option>
-                                        <option value="5 - 9 years" disabled> 5 - 9 years</option>
-                                        <option value="10 - 14 years" disabled> 10 - 14 years</option>
-                                        <option value="15 - 19 years" disabled> 15 - 19 years</option>
-                                        <option value="20 - above" disabled> 20 - above</option>
-                                        <option value="SAN & Benchers" disabled> SAN & Benchers</option>
-                                    </select>
-                                    @error('yearOfCallToBar')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                               
                                 <div class="mb-2">
-                                    <label class="form-label">Branch dues</label>
+                                    <label class="form-label">Amount</label>
                                     <div class="mb-3 mt-1">
-                                        <input type="number" id="branch_dues"  name="branch"  class="form-control branchfield" placeholder="Enter amount">
+                                        <input type="number" id="Amount"  name="Amount"  class="form-control branchfield" placeholder="Enter amount">
                                     </div>
                                     @error('name')
                                         <span class="text-danger text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="mb-2">
-                                    <label class="form-label">ID card</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" id="id_card"  name="card"  class="form-control cardfield" placeholder="Enter amount">
-                                    </div>
-                                    @error('card')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Insurance</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" id="insurance_edit"  name="insurance"  class="form-control insurancefield" placeholder="Enter amount">
-                                    </div>
-                                    @error('name')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Total</label>
-                                    <div class="mb-3 mt-1">
-                                        <input type="number" readonly id="total_edit"  name="total"  class="form-control totalfield" placeholder="Enter amount" readonly>
-                                    </div>
-                                    @error('name')
-                                        <span class="text-danger text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                    </div>
+                                
+                       </div>
                     </div>
                 <div class="modal-footer  ">
                     <button type="submit" class="btn btn-primary w-100 btn-custom-h">Update payment</button>
@@ -254,41 +157,17 @@
                         <div class="row">
                             <div class="mb-2 col-md-12">
                                 <input type="hidden" id="user_update_id" name="user_update_id">
-                                <label class="form-label mb-2">First name</label>
-                                <input type="text" id="firstname" name="firstname"  class="form-control @error('firstname') is-invalid @enderror">
-                                @error('firstname')
+                                <label class="form-label mb-2">Name</label>
+                                <input type="text" id="name" name="name"  class="form-control @error('name') is-invalid @enderror">
+                                @error('name')
                                     <span class="text-danger text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="mb-2 col-md-6">
-                                <label class="form-label mb-2">Last name</label>
-                                <input type="text" id="lastname" name="lastname"  class="form-control @error('lastname') is-invalid @enderror">
-                                @error('lastname')
-                                    <span class="text-danger text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2 col-md-6">
-                                <label class="form-label mb-2">Middle name</label>
-                                <input type="text" id="middlename" name="middlename"  class="form-control @error('middlename') is-invalid @enderror">
-                                @error('middlename')
-                                    <span class="text-danger text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2 col-md-6">
-                                <label class="form-label mb-2">Year of Call To Bar</label>
-                                <input type="text" id="yearOfCallToBar" name="yearOFCall"  class="form-control @error('scn') is-invalid @enderror" required readonly>
-                                @error('yearOfCallToBar')
-                                    <span class="text-danger text-sm">{{ $message }}</span>
-                                @enderror
-                            </div>
-
-                            <div class="mb-2 col-md-6">
-                                <label class="form-label mb-2">SCN</label>
-                                <input type="text"id="editSCN" name="scn"  class="form-control @error('scn') is-invalid @enderror" required readonly>
-                                @error('scn')
+                                <label class="form-label mb-2">Staff ID</label>
+                                <input type="text"id="editstaffId" name="staffId"  class="form-control @error('staffId') is-invalid @enderror" required readonly>
+                                @error('staffId')
                                     <span class="text-danger text-sm">{{ $message }}</span>
                                 @enderror
                             </div>

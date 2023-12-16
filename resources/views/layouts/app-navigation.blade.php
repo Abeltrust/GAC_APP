@@ -46,10 +46,10 @@
                     @endif --}}
                 @else
 
+                    
                         <li class="nav-item">
-                            <a href=""  class="nav-link">Membership area</a>
+                                <a href="{{route('settings')}}" class="nav-link {{'settings'== request()->path()?'active':''}} ">Settings</a>
                         </li>
-
                         <li class="nav-item">
                             <a class="btn btn-primary px-4" href=""
                             onclick="event.preventDefault();
