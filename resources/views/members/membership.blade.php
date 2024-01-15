@@ -1,26 +1,47 @@
 
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
 <div class="container mt-4">
-        <div class="text-center">
-            <img src="assets/images/avatar-2.jpg" class="rounded-circle mb-3" style="width: 150px; height: 150px;" alt="User Image">
-            <h3>{{Auth::user()-> name}}</h3>
-            <!-- <div class="mt-2">
-                <span class="badge bg-success py-2">Verified</span>
-                <span class="badge bg-warning py-2 text-dark">Pending</span>
-            </div> -->
-        </div>
         
-        <div class="mt-4">
-           <div class="d-flex justify-content-between">
-             <h4>Requisition Information</h4>  
-             <div class="mt-2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                   Apply for Loan
-                </button>
-             </div>
+       <div class="row align-content-center">
+        <div class="col-md-3 ">
+                    <img src="assets/images/avatar-2.jpg" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
+                     <!-- <div class="mt-2">
+                       <span class="badge bg-success py-2">Verified</span>
+                       <span class="badge bg-warning py-2 text-dark">Pending</span>
+                     </div> -->
+              </div>
+        <div class="col-md-4 mt-3 card-profile mx-1">
+                    <span
+                    class="larg-number" 
+                        data-bs-toggle="popover" 
+                        title="Total amount generated" 
+                        data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
+                        &#8358;{{ number_format(1000) }}</span>
+                    <p class="text-danger">Outstanding Ballance</p>
+          </div>
+          <div class="col-md-4 mt-3 justify-content-evenly">
+        <div class="mt-2 ">
+            <button type="button" class="btn btn-primary mx-1 btn-py w-100" data-bs-toggle="modal" data-bs-target="#financialModal">
+               Apply Financial Loan
+            </button>
+        </div>
+        <div class="mt-2 ">
+            <button type="button" class="btn btn-primary mx-1 btn-py w-100" data-bs-toggle="modal" data-bs-target="#mortageModal">
+               Apply Mortgage Loan
+            </button>
+        </div>
+    </div>
+        </div>
+        <div class="mt-2">
+        <div class="d-flex flex-lg-row flex-column justify-content-between">
+    <div>
+        <h4>Requisition Information</h4>
+    </div>  
+</div>
+
            </div>
           @if(!is_null($data))
            <span>

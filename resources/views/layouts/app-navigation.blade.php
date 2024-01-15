@@ -25,8 +25,7 @@
                 <li class="nav-item">
                     <a href="" class="nav-link">Blog</a>
                 </li>
-
-                <li class="nav-item">
+                
                     <a href=""  class="nav-link">About us</a>
                 </li>
                 @guest

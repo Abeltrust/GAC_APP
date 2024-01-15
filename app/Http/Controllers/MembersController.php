@@ -16,14 +16,14 @@ class MembersController extends Controller
     public function index()
     {
         $users = User::where('role','!=','admin')->paginate(5);
-        $scnValues = User::where('role','!=','admin')->select('staffID')->get();
+       //// $scnValues = User::where('role','!=','admin')->select('staffID')->get();
         $data =Requisition::where('applied_by',auth()->user()->email);
         $pageTitle ='Members';
 
         // return $scnValues;
-       return view('admin.members',compact('users','scnValues','pageTitle'));
+       return view('admin.members',compact('users','pageTitle'));
     }
-
+  
     public function pagination(Request $request){
         $users = User::where('role','!=','admin')->paginate(5);
         return view('admin.member_pagination',compact('users'))->render();
@@ -43,9 +43,7 @@ class MembersController extends Controller
 
     public function viewProfile($id)
     {
-        
         $user = User::find($id);
-        $scn = $user->staffId;
         $data = Requisition::where('applied_by',auth()->user()->email);
         $paymentDetails = PaymentDetails::all();
         

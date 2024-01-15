@@ -53,15 +53,6 @@
         <div class="d-flex align-items-center justify-content-between mb-5">
             <h2 class="table-title-2">Members</h2>
             
-            <div>
-                <select name="memberSearch" id="memberSearch" class="form-control  form-select-2 form-select">
-              
-                    <option value="Select SCN" disabled selected>Select Staff Id</option>
-                     @foreach($scnValues as $scn)
-                        <option value="{{ $scn->scn }}">{{ $scn->StaffID}}</option>
-                    @endforeach 
-                </select>
-            </div>
         </div>
         <div class="col-md-12 table-responsive member-table" >
             <table class="table table-borderless table-striped w-100">

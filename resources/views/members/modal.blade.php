@@ -1,4 +1,62 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="financialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Requisition Form</h5>
+        <button type="button" class="btn-close btn-bg-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form method="POST" action="{{route('finance.store')}}" >
+          @csrf
+        <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="Item" class="col-md-12 col-form-label text-md-start">{{ __('Description') }}</label>
+              <input id="Item" type="text" class="form-control @error('Item') is-invalid @enderror" name="Item" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('Item')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="Amount" class="col-md-12 col-form-label text-md-start">{{ __('Amount') }}</label>
+              <input id="Amount" type="text" class="form-control @error('Amount') is-invalid @enderror" name="Item" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('Amount')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Amount to deduct monthly') }}</label>
+              <input id="deduct" type="text" class="form-control @error('deduct') is-invalid @enderror" name="deduct" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('deduct')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+          </div>
+      </div>
+          <div class="modal-footer">
+            <button type="button w-100" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="mortageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -48,6 +106,17 @@
             <div class="col-md-12">
               <label for="amount" class="col-form-label">{{ __('Amount') }}</label>
               <input id="amount" type="text" class="form-control" name="amount" readonly>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Amount to deduct monthly') }}</label>
+              <input id="deduct" type="text" class="form-control @error('deduct') is-invalid @enderror" name="deduct" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('deduct')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
             </div>
           </div>
           <div class="modal-footer">

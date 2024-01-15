@@ -18,12 +18,12 @@ class UserHasPermission
         if(auth()->user()->role){
             if(auth()->user()->role=='admin' ){
                 return $next($request);
-            }else if(auth()->user()->role=='admin'){
+            }else if(auth()->user()->role=='user'){
                 return $next($request);
             }else{
                 return redirect()->route('profile');
             }
-        }else if(auth()->user()->role=='admin'){
+        }else if(auth()->user()->role==''){
             return $next($request);
         }else{
             return redirect()->route('profile');

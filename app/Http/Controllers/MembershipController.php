@@ -19,12 +19,10 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        $userd= Auth::user();
-        $data = Requisition::where('applied_by',auth()->user()->email);
+        $data = Requisition::where('applied_by',Auth::user()->email);
         $payment =null;
-        $user =User::where('email','Auth::user()->email');
-        // $paymentDetails = PaymentDetails::where('scn',Auth::user()->scn)->get();
-        // // return($paymentDetails);
+        $user =User::where('email',Auth::user()->email);
+        
         return view('members.membership',compact('data','user'));
     }
 

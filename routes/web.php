@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
     $total= PaymentDetails::where('status','successful')->sum('amount');
     return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA'));
 })->middleware(['auth'])->name('dashboard');
-
+     
 Route::middleware(['auth','hasPermission'])->group(function () {
     Route::get('/profile',[MembershipController::class,'index'])->name('profile');
     Route::get('/notification/pagination/paginate-data',[NotificationController::class,'pagination']);
@@ -55,13 +55,13 @@ Route::middleware(['auth','hasPermission'])->group(function () {
 
     Route::get('/receipt/{id}', [MembershipController::class, 'receipt'])->name('receipt');
     Route::post('/application',[RequisitionController::class,'store'])->name('application.store');
-    
+    Route::post('/finance',[RequisitionController::class,'store'])->name('finance.store');
 });
 
     Route::middleware(['auth','hasPermission'])->group(function () {
         
     Route::get('/profile',[MembershipController::class,'index'])->name('profile');
-   Route::get('/members',[MembersController::class,'index'])->name('members');
+    Route::get('/members',[MembersController::class,'index'])->name('members');
     Route::get('/members/pagination/paginate-data',[MembersController::class,'pagination']);
     Route::get('/members/search',[MembersController::class,'searchMembers'])->name('members.search');
     
