@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('userImage');
             $table->string('staffId');
             $table->string('Department');
-            $table->string('monthlyDeduction');
             $table->string('nextOfKinFullName');
             $table->string('nextOfKinPhoneNumber');
             $table->longText('nextOfKinAddress');

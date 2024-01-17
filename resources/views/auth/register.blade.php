@@ -169,7 +169,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="form-group col-md-12 mb-2">
+                                    <!-- <div class="form-group col-md-12 mb-2">
                                             <label for="monthlyDeduction">Amount to be Deducted Monthly <span class="text-danger">*</span> <span>minimum 2,000</span></label>
                                             <input type="number" class="form-control @error('monthlyDeduction') is-invalid @enderror" id="monthlyDeduction" min="2000" value="{{ old('monthlyDeduction') }}" name="monthlyDeduction">
                                             @error('monthlyDeduction')
@@ -177,7 +177,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                            @enderror
-                                    </div>
+                                    </div> -->
                                 </div>
                              
                             <h5>Next Of Kin Information</h5>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Requisition;
 use App\Models\PaymentDetails;
+use Illuminate\Support\Facades\Auth;
 
 class MembersController extends Controller
 {
@@ -44,7 +45,7 @@ class MembersController extends Controller
     public function viewProfile($id)
     {
         $user = User::find($id);
-        $data = Requisition::where('applied_by',auth()->user()->email);
+        $data = Requisition::where('applied_by',$user->email)->get();
         $paymentDetails = PaymentDetails::all();
         
         

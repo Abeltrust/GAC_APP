@@ -7,7 +7,7 @@
     <div class="col-md-12">
         <div class="row">
             <div class="mt-2">
-                    <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary btn-py w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Apply for Loan
                     </button>
                 </div>
@@ -84,10 +84,10 @@
                                 &#8358;{{ number_format($r->total) }}
                             </td> 
                             <td>
-                                @if($r->status ==='Approve')
+                                @if($r->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                        Approved
+                                        Approved 
                                     </span>
                                 @elseif($r->status ==='pending')
                                     <span class="badge bg-warning-badge bg-warning py-2 px-3">
@@ -146,10 +146,10 @@
                                 &#8358;{{ number_format($rp->total) }}
                             </td> 
                             <td>
-                                @if($rp->status ==='Approve')
+                                @if($rp->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                        Approved
+                                        Approved {{$r->status}}
                                     </span>
                                 @elseif($rp->status ==='pending')
                                     <span class="badge bg-warning-badge bg-warning py-2 px-3">
@@ -208,7 +208,7 @@
                                 &#8358;{{ number_format($rD->total) }}
                             </td> 
                             <td>
-                                @if($rD->status ==='Approve')
+                                @if($rD->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved
@@ -273,7 +273,7 @@
                                 &#8358;{{ number_format($rA->total) }}
                             </td> 
                             <td>
-                                @if($rA->status ==='Approve')
+                                @if($rA->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved
@@ -335,7 +335,7 @@
                                 &#8358;{{ number_format($rpA->total) }}
                             </td> 
                             <td>
-                                @if($rpA->status ==='Approve')
+                                @if($rpA->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved
@@ -397,7 +397,7 @@
                                 &#8358;{{ number_format($rDA->total) }}
                             </td> 
                             <td>
-                                @if($rDA->status ==='Approve')
+                                @if($rDA->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved

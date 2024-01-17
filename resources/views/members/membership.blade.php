@@ -7,7 +7,7 @@
         
        <div class="row align-content-center">
         <div class="col-md-3 ">
-                    <img src="assets/images/avatar-2.jpg" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
+                    <img src="{{asset('assets/images/avatar-2.jpg')}}" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
                      <!-- <div class="mt-2">
                        <span class="badge bg-success py-2">Verified</span>
                        <span class="badge bg-warning py-2 text-dark">Pending</span>
@@ -19,7 +19,7 @@
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
                         data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
-                        &#8358;{{ number_format(1000) }}</span>
+                        &#8358;{{ number_format($total) }}</span>
                     <p class="text-danger">Outstanding Ballance</p>
           </div>
           <div class="col-md-4 mt-3 justify-content-evenly">
@@ -43,12 +43,12 @@
 </div>
 
            </div>
-          @if(!is_null($data))
+          @if(is_null($data))
            <span>
               No application data
            </span>
            @else
-           <table class="table nowrap">
+           <table class="table nowrap table-borderless table-striped w-100">
                 <thead>
                     <tr>
                         <th>S/N</th>
@@ -64,8 +64,8 @@
                         <td>{{$index+1 }}</td>
                         <td>{{$d -> item}}</td>
                         <td>{{$d -> quantity}}</td>
-                        <td>&#8358;{{$d -> total}} </td>
-                      @if($d -> status == 'approve')
+                        <td>&#8358;{{ number_format($d -> total) }} </td>
+                      @if($d -> status == 'approved')
                         <td><span class="btn-primary text-light p-1 rounded"> Approved </span></td>
                         @elseif($d -> status =='pending')
                          <td><span class="btn-warning text-light p-1 rounded"> pending </span></td>
@@ -73,6 +73,7 @@
                            <td><span class="btn-danger text-light p-1 rounded"> Declined </span></td>
                        @endif
                     </tr>
+                   
                 @endforeach
                 </tbody>
             </table>

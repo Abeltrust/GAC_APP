@@ -48,7 +48,6 @@ class RegisteredUserController extends Controller
             // 'userImage' => ['file','image:jpeg,png,jpg,','max:3072'],
             'staffId' => ['required','string','max:255'],
             'Department' => ['required','string','max:255'],
-            'monthlyDeduction' => ['required','string','min:3'],
             'nextOfKinFullName' => ['required','string','max:255'],
             'nextOfKinPhoneNumber' => ['required','string','max:255'],
             'nextOfKinAddress' => ['required','string','max:255']
@@ -77,7 +76,6 @@ class RegisteredUserController extends Controller
             $user -> Department     = $request ->Department;
             $user -> gender         = $request ->gender;
             $user -> phoneNumber    = $request ->phoneNumber;
-            $user -> monthlyDeduction = $request ->monthlyDeduction;
             $user -> nextOfKinFullName = $request ->nextOfKinFullName;
             $user -> nextOfKinPhoneNumber= $request ->nextOfKinPhoneNumber;
             $user -> nextOfKinAddress   = $request ->nextOfKinAddress;
@@ -94,7 +92,6 @@ class RegisteredUserController extends Controller
             $user -> Department     = $request ->Department;
             $user -> gender         = $request ->gender;
             $user -> phoneNumber    = $request ->phoneNumber;
-            $user -> monthlyDeduction = $request ->monthlyDeduction;
             $user -> nextOfKinFullName = $request ->nextOfKinFullName;
             $user -> nextOfKinPhoneNumber= $request ->nextOfKinPhoneNumber;
             $user -> nextOfKinAddress   = $request ->nextOfKinAddress;

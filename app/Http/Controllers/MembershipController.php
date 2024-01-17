@@ -19,11 +19,12 @@ class MembershipController extends Controller
      */
     public function index()
     {
-        $data = Requisition::where('applied_by',Auth::user()->email);
+        $data = Requisition::where('applied_by',Auth::user()->email)->get();
         $payment =null;
         $user =User::where('email',Auth::user()->email);
-        
-        return view('members.membership',compact('data','user'));
+        $invoice =Requisition::where('applied_by',Auth::user()->email)->where('status','approved')->get();
+        $total=$invoice->sum('total');
+       return view('members.membership',compact('data','user','total'));
     }
 
     /**

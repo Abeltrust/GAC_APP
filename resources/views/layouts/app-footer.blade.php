@@ -1,11 +1,10 @@
 
 <footer>
             <div class="container">
-
                 <div class="row footer-row ">
                     <div class="col-md-12">
                         <div class="reg-section-content-image">
-                            <img src="{{asset('NBA/public/assets/home/logo-2.png')}}" alt="">
+                            <img src="{{asset('assets/images/logo.png')}}" class="rounded-circle logo mx-5" style="width: 80px; height: 80px;"  alt="logo">
                             <h2>Gombe State University</h2>
                         </div>
                     </div>

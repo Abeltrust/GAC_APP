@@ -24,7 +24,8 @@ class RequisitionController extends Controller
         $requisition -> total =$request -> amount;
         $requisition -> status ='pending';
         $requisition -> applied_by = auth()->user()->email;
-        $requisition -> approved_by = auth()->user()->email;
+        $requisition -> approved_by = '';
+        $requisition -> deduct_monthly = $request->deduct_monthly;
         $requisition ->save();
 
         toast('Application send successfully!', 'success')->timerProgressBar();

@@ -14,25 +14,23 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\NotificationController; 
 use App\Http\Controllers\PermissionController;  
 use App\Http\Controllers\SetPaymentController;  
-use App\Http\Controllers\RequisitionController;  
+use App\Http\Controllers\RequisitionController; 
+use App\Http\Controllers\FinanceController;
 use App\Models\Requisition;
 Route::get('/', function () {
-   
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
     $users = User::where('role','!=','admin')->paginate(5);
-    $request  = Requisition::where('status','=','approve')->where('applied_by','=',auth()->user()->email)->paginate(5);
-    $requestP = Requisition::where('status','=','pending')->where('applied_by','=',auth()->user()->email)->paginate(5);
-    $requestD = Requisition::where('status','=','decline')->where('applied_by','=',auth()->user()->email)->paginate(5);
-    $requestA  = Requisition::where('status','=','approve')->paginate(5);
+    $request   = Requisition::where('status','=','approved')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestP  = Requisition::where('status','=','pending')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestD  = Requisition::where('status','=','decline')->where('applied_by','=',auth()->user()->email)->paginate(5);
+    $requestA  = Requisition::where('status','=','approved')->paginate(5);
     $requestPA = Requisition::where('status','=','pending')->paginate(5);
     $requestDA = Requisition::where('status','=','decline')->paginate(5);
     
-    // with([
-    //     'permission'
-    //     ]);
+    
     $total= PaymentDetails::where('status','successful')->sum('amount');
     return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA'));
 })->middleware(['auth'])->name('dashboard');
@@ -55,7 +53,7 @@ Route::middleware(['auth','hasPermission'])->group(function () {
 
     Route::get('/receipt/{id}', [MembershipController::class, 'receipt'])->name('receipt');
     Route::post('/application',[RequisitionController::class,'store'])->name('application.store');
-    Route::post('/finance',[RequisitionController::class,'store'])->name('finance.store');
+    Route::post('/finance/store', [FinanceController::class, 'store'])->name('finance.store');
 });
 
     Route::middleware(['auth','hasPermission'])->group(function () {
