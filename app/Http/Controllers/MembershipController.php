@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Requisition;
+use App\Models\finance;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,12 +20,15 @@ class MembershipController extends Controller
      */
     public function index()
     {
+        $dataf = finance::where('applied_by',Auth::user()->email)->get();
         $data = Requisition::where('applied_by',Auth::user()->email)->get();
         $payment =null;
         $user =User::where('email',Auth::user()->email);
-        $invoice =Requisition::where('applied_by',Auth::user()->email)->where('status','approved')->get();
-        $total=$invoice->sum('total');
-       return view('members.membership',compact('data','user','total'));
+        $invoiceM =Requisition::where('applied_by',Auth::user()->email)->where('status','approved')->get();
+        $invoicef=finance::where('applied_by',Auth::user()->email)->where('status','approved')->get();
+        $total = $invoiceM->sum('total') + $invoicef->sum('amount');
+        
+       return view('members.membership',compact('data','user','total','dataf'));
     }
 
     /**

@@ -3,6 +3,7 @@ use App\Models\User;
 use App\Models\setPayment;
 use App\Models\Payment;
 use App\Models\PaymentDetails;
+use App\Models\finance;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserApiController;
@@ -29,10 +30,11 @@ Route::get('/dashboard', function () {
     $requestA  = Requisition::where('status','=','approved')->paginate(5);
     $requestPA = Requisition::where('status','=','pending')->paginate(5);
     $requestDA = Requisition::where('status','=','decline')->paginate(5);
-    
+    $finance = finance::where('status','=','pending')->paginate(5);
+    $financeApproved = finance::where('status','=','approved')->paginate(5);
     
     $total= PaymentDetails::where('status','successful')->sum('amount');
-    return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA'));
+    return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA','finance','financeApproved'));
 })->middleware(['auth'])->name('dashboard');
      
 Route::middleware(['auth','hasPermission'])->group(function () {
@@ -53,7 +55,12 @@ Route::middleware(['auth','hasPermission'])->group(function () {
 
     Route::get('/receipt/{id}', [MembershipController::class, 'receipt'])->name('receipt');
     Route::post('/application',[RequisitionController::class,'store'])->name('application.store');
+    Route::get('/approve/{status}',[RequisitionController::class,'approve'])->name('approve');
+    Route::get('/rdeduct/{amount}',[RequisitionController::class,'deduct'])->name('rdeduct');
+
     Route::post('/finance/store', [FinanceController::class, 'store'])->name('finance.store');
+    Route::get('/fapprove/{status}', [FinanceController::class, 'approve'])->name('fapprove');
+    Route::get('/fdeduct/{amount}', [FinanceController::class, 'deduct'])->name('fdeduct');
 });
 
     Route::middleware(['auth','hasPermission'])->group(function () {

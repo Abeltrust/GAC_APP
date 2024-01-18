@@ -57,20 +57,22 @@ class RegisteredUserController extends Controller
         $phone= $request->phonenumber;
         $email= $request->email;
        // dd($file = $request->file('userImage'));
-        if ($request->hasFile('userImage')) {
-            $file = $request->file('userImage');
-        $filePath = $file->store('assets\images', 'public');
-       
+       if ($request->hasFile('userImage')) {
+        $file = $request->file('userImage');
+        $filename = uniqid() . '_' . time() . '.' . $file->getClientOriginalExtension();
+    
+        $filePath = $file->storeAs('assets/images', $filename, 'public');
+    
         $userCheck = UserApi::where('email',$email)->orWhere('phone',$phone)->first();
-       $roleCheck =User::where('role','!=admin')->first();
+        $roleCheck =User::where('role','!=admin')->first();
        
         if(is_null($userCheck)){
-            if($roleCheck){
+            if(is_null($roleCheck)){
             $user = new User();
             $user -> name           = $request -> name;
             $user -> email          = $request ->email;
             $user -> password       = Hash::make($request->password);
-            $user -> userImage      = $filePath;
+            $user -> userImage      = $filename;
             $user -> maritalStatus  = $request ->maritalStatus;
             $user -> staffId        = $request ->staffId;
             $user -> Department     = $request ->Department;
@@ -86,7 +88,7 @@ class RegisteredUserController extends Controller
             $user -> name           = $request -> name;
             $user -> email          = $request ->email;
             $user -> password       = Hash::make($request->password);
-            $user -> userImage      = $filePath;
+            $user -> userImage      = $filename;
             $user -> maritalStatus  = $request ->maritalStatus;
             $user -> staffId        = $request ->staffId;
             $user -> Department     = $request ->Department;
@@ -111,5 +113,5 @@ class RegisteredUserController extends Controller
         toast('No image Uploaded', 'error')->timerProgressBar();
         return redirect()->route('register');
     }
-    }
+  } 
 }

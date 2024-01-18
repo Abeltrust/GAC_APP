@@ -36,25 +36,26 @@ class RequisitionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Requisition $requisition)
+    public function approve($id)
     {
-        //
+        $requisition = Requisition::find($id);
+        $requisition -> status ='approved';
+        $requisition -> approved_by = auth()->user()->email;
+        $requisition ->update();
+
+        toast('Application Approved successfully!', 'success')->timerProgressBar();
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Requisition $requisition)
+  
+    public function deduct($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Requisition $requisition)
-    {
-        //
+        $request = Requisition::find($id);
+    $ballance = $request -> total - $request -> deduct_monthly;
+    $request -> total =  $ballance;
+    $request ->update();
+    toast('Deducted successfully!', 'success')->timerProgressBar();
+    return redirect()->back();
     }
 
     /**

@@ -32,20 +32,30 @@ class FinanceController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(finance $finance)
+    public function approve($id)
     {
-        //
+        $finance = finance::find($id);
+        $finance -> status ='approved';
+        $finance -> approved_by = auth()->user()->email;
+        $finance ->update();
+
+        toast('Application Approved successfully!', 'success')->timerProgressBar();
+        return redirect()->back();
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(finance $finance)
+    public function deduct( $id)
     {
-        //
+        $finance = finance::find($id);
+        $ballance = $finance -> amount - $finance -> deduct_monthly;
+       
+        $finance -> amount =  $ballance;
+        $finance ->update();
+        toast('Deducted successfully!', 'success')->timerProgressBar();
+        return redirect()->back();
+
     }
 
     /**

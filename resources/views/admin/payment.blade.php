@@ -1,20 +1,4 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
 
 @extends('layouts.admin')
 <script type="text/javascript" defer>
@@ -122,33 +106,31 @@
             <table class="table table-borderless table-striped w-100">
                 <thead>
                   <tr>
-                    <th class=" h-table">Name</th>
-                    <th class=" h-table">Phone number</th>
+                    <th class=" h-table">Email</th>
                     <th class=" h-table">Amount</th>
+                    <th class=" h-table">Deduction</th>
                     <th class=" h-table">Status</th>
                     <th class=" h-table">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    @if (!$users->isEmpty())
-                        @foreach($users as $user)
+                    @if (!$finance->isEmpty() || !$mortgage -> isEmpty())
+                        @foreach($mortgage as $m)
                                 
                                 <tr>
-                                    <td >{{$user -> name}}</td>
-                                    <td>{{ $user->email }}</td>
+                                    <td >{{$m -> applied_by}}</td>
+                                    <td>&#8358;{{ number_format($m -> total) }}</td>
                                     <td>
-                                        &#8358;{{ number_format(1000) }}
+                                        &#8358;{{ number_format($m->deduct_monthly) }}
                                     </td>
+                                   
                                     <td>
-                                        Pending 
-                                    </td>
-                                    {{--<td>
-                                        @if($payment->status ==='successful')
+                                        @if($m->status ==='approved')
                                             <span class="badge bg-success-badge py-2 px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                                Successful
+                                                approved
                                             </span>
-                                        @elseif($payment->status ==='pending')
+                                        @elseif($m->status ==='pending')
                                             <span class="badge bg-warning-badge py-2 px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                                 Pending
@@ -158,10 +140,44 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                                 Decline
                                             </span>
-                                        @endif--}}
+                                        @endif
                                     </td>
                                     <td>
-                                        <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$user -> id}}"> View</button>
+                                      <a class="btn btn-view bg-primary text-light" href="{{route('rdeduct',$m -> id)}}" type="button" > Deduct</a>
+                                      <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$m -> id}}"> View</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            @foreach($finance as $f)
+                                
+                                <tr>
+                                    <td >{{$f -> applied_by}}</td>
+                                    <td>&#8358;{{ number_format($f -> amount) }}</td>
+                                    <td>
+                                        &#8358;{{ number_format($f->deduct_monthly) }}
+                                    </td>
+                                   
+                                    <td>
+                                        @if($f->status ==='approved')
+                                            <span class="badge bg-success-badge py-2 px-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                                approved
+                                            </span>
+                                        @elseif($f->status ==='pending')
+                                            <span class="badge bg-warning-badge py-2 px-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                                Pending
+                                            </span>
+                                        @else
+                                        <span class="badge bg-danger-badge py-2 px-3">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                                Decline
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                      <a class="btn btn-view bg-primary text-light" href="{{route('fdeduct',$f -> id)}}" type="button" > Deduct</a>
+                                      <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$f -> id}}"> View</button>
                                     </td>
                                 </tr>
                             @endforeach

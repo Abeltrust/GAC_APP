@@ -6,6 +6,8 @@ use App\Models\Payment;
 use App\Models\User;
 use App\Models\PaymentDetails;
 use Illuminate\Http\Request;
+use App\Models\finance;
+use App\Models\Requisition;
 
 
 class PaymentController extends Controller
@@ -15,10 +17,12 @@ class PaymentController extends Controller
      */
     public function index()
     { 
+        $finance = finance::where('status','approved')->get();
+        $mortgage = Requisition::where('status','approved')->get();
         $users = User::where('role','!=','admin')->get();
         $scnValues = User::where('role','!=','admin')->select('staffID')->get();
         // $paymentDetails = PaymentDetails::all();
-       return view('admin.payment',compact('users','scnValues'));
+       return view('admin.payment',compact('users','finance','mortgage','scnValues'));
     }
 
     /**

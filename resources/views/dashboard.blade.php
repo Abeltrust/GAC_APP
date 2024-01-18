@@ -110,6 +110,41 @@
                              </td>
                             </tr>
                              @endforeach
+                             
+                             @foreach($finance as $f)
+                               <tr>
+                                   <td>{{$f->description}}</td>
+                                   <td>{{$f->applied_by}}</td>
+                                   <td>&#8358;{{ number_format($f->amount)}}</td>
+                                   <td>
+                                   @if($f->status ==='approved')
+                                   <span class="badge bg-success-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Approved
+                                   </span>
+                               @elseif($f->status ==='pending')
+                                   <span class="badge bg-warning-badge bg-warning py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Pending
+                                   </span>
+                               @else
+                               <span class="badge bg-danger-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Decline
+                                   </span>
+                               @endif  
+                                   </td>
+                                   <td>
+                                   @if(auth()->user()-> role==='admin')
+                                      <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                      <a class="btn btn-peimary bg-success text-light" href="{{route('approve',$f -> id)}}" type="button" > Approve</a>
+                                      <a class="btn btn-view bg-danger text-light" href="{{route('decline',$f -> id)}}"  type="button" > Decline</a>
+                              @else
+                               -
+                              @endif
+                                   </td>
+                               </tr>
+                             @endforeach
                 </tbody>
             </table>
         </div>
@@ -151,11 +186,13 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved {{$r->status}}
                                     </span>
+                                    <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
                                 @elseif($rp->status ==='pending')
                                     <span class="badge bg-warning-badge bg-warning py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Pending
                                     </span>
+                                    <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
                                 @else
                                 <span class="badge bg-danger-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
@@ -242,6 +279,105 @@
      @endif
     @endif
     @if(auth()->user()->role==='admin')
+    @if (!$requestPA->isEmpty() || !$finance->isEmpty())
+     <div class="row mt-4">
+     <div class="d-flex align-items-center justify-content-between">
+            <h2 class="table-title">Pending Request</h2>
+            <a href="{{route('payments')}}" class="a-view-all">
+                View all
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/></svg>
+            </a>
+        </div>
+        <div class="col-md-12 table-responsive" >
+            <table class="table table-borderless table-striped w-100">
+                <thead>
+                  <tr>
+                    <th class=" h-table">Name</th>
+                    <th class=" h-table">Email</th>
+                    <th class=" h-table">Amount</th>
+                    <th class=" h-table">Status</th>
+                    <th class=" h-table">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach($requestPA as $rpA )
+                    <tr>
+                            <td >{{$rpA -> item}}</td>
+                            <td>
+                                    {{ $rpA->applied_by }}
+                            </td>
+                            <td>
+                                &#8358;{{ number_format($rpA->total) }}
+                            </td> 
+                            <td>
+                                @if($rpA->status ==='approved')
+                                    <span class="badge bg-success-badge py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Approved
+                                    </span>
+                                @elseif($rpA->status ==='pending')
+                                    <span class="badge bg-warning-badge bg-warning py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Pending
+                                    </span>
+                                @else
+                                <span class="badge bg-danger-badge py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Decline
+                                    </span>
+                                @endif
+                            </td>
+                             <td>
+                               @if(auth()->user()-> role==='admin')
+                               <button class="btn btn-view btnpaymentView" data-id="{{$rpA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <a class="btn btn-view bg-success text-light" href="{{route('approve',$rpA -> id)}}" type="button" > Approve</a>
+                               <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                               @else
+                                -
+                               @endif
+                             </td>
+                            </tr>
+                             @endforeach
+                             
+                              @foreach($finance as $f)
+                                <tr>
+                                    <td>{{$f->description}}</td>
+                                    <td>{{$f->applied_by}}</td>
+                                    <td>&#8358;{{ number_format($f->amount)}} finance</td>
+                                    <td>
+                                    @if($f->status ==='approved')
+                                    <span class="badge bg-success-badge py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Approved
+                                    </span>
+                                @elseif($f->status ==='pending')
+                                    <span class="badge bg-warning-badge bg-warning py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Pending
+                                    </span>
+                                @else
+                                <span class="badge bg-danger-badge py-2 px-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                        Decline
+                                    </span>
+                                @endif  
+                                    </td>
+                                    <td>
+                                    @if(auth()->user()-> role==='admin')
+                                       <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                       <a class="btn btn-view bg-success text-light" href="{{route('fapprove',$f -> id)}}" type="button" > Approve</a>
+                                       <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                               @else
+                                -
+                               @endif
+                                    </td>
+                                </tr>
+                              @endforeach
+                </tbody>
+            </table>
+        </div>
+     </div>
+     @endif
     @if (!$requestA->isEmpty())
     <div class="row mt-4">
         <div class="d-flex align-items-center justify-content-between">
@@ -299,67 +435,39 @@
                              </td>
                             </tr>
                              @endforeach
-                </tbody>
-            </table>
-        </div>
-     </div>
-     @endif
-     @if (!$requestPA->isEmpty())
-     <div class="row mt-4">
-     <div class="d-flex align-items-center justify-content-between">
-            <h2 class="table-title">Pending Request</h2>
-            <a href="{{route('payments')}}" class="a-view-all">
-                View all
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/></svg>
-            </a>
-        </div>
-        <div class="col-md-12 table-responsive" >
-            <table class="table table-borderless table-striped w-100">
-                <thead>
-                  <tr>
-                    <th class=" h-table">Name</th>
-                    <th class=" h-table">Email</th>
-                    <th class=" h-table">Amount</th>
-                    <th class=" h-table">Status</th>
-                    <th class=" h-table">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    @foreach($requestPA as $rpA )
-                    <tr>
-                            <td >{{$rpA -> item}}</td>
-                            <td>
-                                    {{ $rpA->applied_by }}
-                            </td>
-                            <td>
-                                &#8358;{{ number_format($rpA->total) }}
-                            </td> 
-                            <td>
-                                @if($rpA->status ==='approved')
-                                    <span class="badge bg-success-badge py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                        Approved
-                                    </span>
-                                @elseif($rpA->status ==='pending')
-                                    <span class="badge bg-warning-badge bg-warning py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                        Pending
-                                    </span>
-                                @else
-                                <span class="badge bg-danger-badge py-2 px-3">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                        Decline
-                                    </span>
-                                @endif
-                            </td>
-                             <td>
-                               @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$rpA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                             
+                             @foreach($financeApproved as $fa)
+                               <tr>
+                                   <td>{{$fa->description}}</td>
+                                   <td>{{$fa->applied_by}}</td>
+                                   <td>&#8358;{{ number_format($fa->amount)}}</td>
+                                   <td>
+                                   @if($fa->status ==='approved')
+                                   <span class="badge bg-success-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Approved
+                                   </span>
+                               @elseif($fa->status ==='pending')
+                                   <span class="badge bg-warning-badge bg-warning py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Pending
+                                   </span>
                                @else
-                                -
-                               @endif
-                             </td>
-                            </tr>
+                               <span class="badge bg-danger-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Decline
+                                   </span>
+                               @endif  
+                                   </td>
+                                   <td>
+                                   @if(auth()->user()-> role==='admin')
+                                      <button class="btn btn-view btnpaymentView" data-id="{{$fa -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                    
+                              @else
+                               -
+                              @endif
+                                   </td>
+                               </tr>
                              @endforeach
                 </tbody>
             </table>
@@ -423,58 +531,48 @@
                              </td>
                             </tr>
                              @endforeach
+
+                             @foreach($finance as $f)
+                               <tr>
+                                   <td>{{$f->description}}</td>
+                                   <td>{{$f->applied_by}}</td>
+                                   <td>&#8358;{{ number_format($f->amount)}}</td>
+                                   <td>
+                                   @if($f->status ==='approved')
+                                   <span class="badge bg-success-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Approved
+                                   </span>
+                               @elseif($f->status ==='pending')
+                                   <span class="badge bg-warning-badge bg-warning py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Pending
+                                   </span>
+                               @else
+                               <span class="badge bg-danger-badge py-2 px-3">
+                                       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
+                                       Decline
+                                   </span>
+                               @endif  
+                                   </td>
+                                   <td>
+                                   @if(auth()->user()-> role==='admin')
+                                      <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                      <a class="btn btn-view bg-success text-light" href="{{route('fapprove',$f -> id)}}" type="button" > Approve</a>
+                                      <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                              @else
+                               -
+                              @endif
+                                   </td>
+                               </tr>
+                             @endforeach
                 </tbody>
             </table>
         </div>
      </div>        
     @endif
-    <div class="row mt-4">
-        <div class="d-flex align-items-center justify-content-between">
-            <h2 class="table-title">Members</h2>
-            <a href="{{route('members')}}" class="a-view-all">
-                View all
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M9.29 6.71a.996.996 0 0 0 0 1.41L13.17 12l-3.88 3.88a.996.996 0 1 0 1.41 1.41l4.59-4.59a.996.996 0 0 0 0-1.41L10.7 6.7c-.38-.38-1.02-.38-1.41.01z"/></svg>
-            </a>
-        </div>
-        <div class="col-md-12 table-responsive" >
-            <table class="table table-borderless table-striped w-100">
-                <thead>
-                  <tr>
-                    <th class=" h-table">Name</th>
-                    <th class=" h-table">Phone Number</th>
-                    <th class=" h-table">Email</th>
-                    <th class=" h-table">Department</th>
-                    <th class=" h-table">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                @if (!is_null($users))
-               
-                @foreach($users as $user)
-                  <tr>
-                    <td >{{$user -> name}}</td>
-                    <td>{{$user -> phoneNumber}}</td>
-                    <td>
-                        {{$user -> email}}
-                    </td>
-                    <td>
-                        {{$user -> Department}}
-                    </td>
-                    <td>
-                       <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
-                    </td>
-                 </tr>
-                @endforeach
-                @else
-                    <tr>
-                    <td colspan="6" class="text-center">No Members</td>
-                   </tr>
-                @endif
-                </tbody>
-            </table>
-         
-        </div>
-    </div>
+   
+      
     @endif
 </div>
 @include('members.modal')
