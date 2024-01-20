@@ -10,11 +10,11 @@ class PaymentDetails extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'scn',
+        'name',
+        'email',
         'amount',
-        'status',
-        'transaction_date',
-        'transaction_id',
+        'count',
+        'staffId',
         ];
 
        

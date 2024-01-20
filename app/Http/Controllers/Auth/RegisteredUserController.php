@@ -64,10 +64,10 @@ class RegisteredUserController extends Controller
         $filePath = $file->storeAs('assets/images', $filename, 'public');
     
         $userCheck = UserApi::where('email',$email)->orWhere('phone',$phone)->first();
-        $roleCheck =User::where('role','!=admin')->first();
+        $roleCheck =User::all()->count();
        
         if(is_null($userCheck)){
-            if(is_null($roleCheck)){
+            if($roleCheck <= 0){
             $user = new User();
             $user -> name           = $request -> name;
             $user -> email          = $request ->email;

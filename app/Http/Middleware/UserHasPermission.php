@@ -21,7 +21,7 @@ class UserHasPermission
             }else if(auth()->user()->role=='user'){
                 return $next($request);
             }else{
-                return redirect()->route('profile');
+                return redirect()->route('dashboard');
             }
         }else if(auth()->user()->role==''){
             return $next($request);

@@ -7,7 +7,7 @@
         
        <div class="row align-content-center">
         <div class="col-md-3 ">
-        <img src="{{ asset('storage/assets/images/' . auth()->user()->userImage) }}" class="rounded-circle mb-3 mx-5" style="width: 120px; height: auto;" alt="User Image">
+        <img src="{{ asset('storage/assets/images/' . auth()->user()->userImage) }}" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
                   <div class="mt-1">
                       <h6> <span class=""><strong>Staff ID:</strong>{{auth()->user()->staffId}}</span></h6>
                     </div> 
@@ -74,7 +74,7 @@
                   <tr>
                     <td>{{$f->description}}</td>
                    <td>&#8358;{{ number_format($f->amount)}}</td>
-                   <td class="text-danger">&#8358;{{ number_format($d -> deduct_monthly) }} </td>
+                   <td class="text-danger">&#8358;{{ number_format($f -> deduct_monthly) }} </td>
                    @if($f -> status == 'approved')
                         <td><span class="btn-primary text-light p-1 rounded"> Approved </span></td>
                         @elseif($f -> status =='pending')

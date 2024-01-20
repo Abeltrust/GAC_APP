@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('quantity');
             $table->string('total');
             $table->string('deduct_monthly');
+            $table->timestamp('last_deduction')->nullable();
             $table->string('applied_by');
             $table->string('approved_by')->nullable();
             $table->timestamps();

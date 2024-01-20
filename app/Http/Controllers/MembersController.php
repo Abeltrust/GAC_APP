@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\finance;
 use App\Models\Requisition;
 use App\Models\PaymentDetails;
 use Illuminate\Support\Facades\Auth;
@@ -45,11 +46,18 @@ class MembersController extends Controller
     public function viewProfile($id)
     {
         $user = User::find($id);
-        $data = Requisition::where('applied_by',$user->email)->get();
+        $dataM = Requisition::where('applied_by',$user->email)->get();
+        $dataF = finance::where('applied_by',$user->email)->get();
         $paymentDetails = PaymentDetails::all();
-        
-        
-        return view('admin.member-profile',compact('user','data'));
+        $invoiceM =Requisition::where('applied_by',$user->email)->where('status','approved')->get();
+        $invoicef=finance::where('applied_by',$user->email)->where('status','approved')->get();
+        $total = $invoiceM->sum('total') + $invoicef->sum('amount');
+        $paid  = PaymentDetails::where('email',$user->email)->sum('amount');
+
+        $countM =Requisition::where('applied_by',$user->email)->where('status','approved')->count();
+        $countf =finance::where('applied_by',$user->email)->where('status','approved')->count();
+        $total_count = $countM + $countf;
+        return view('admin.member-profile',compact('user','dataM','dataF','total','paid','total_count'));
     }
     
     public function edit( $member)

@@ -33,9 +33,7 @@ class PaymentDetailsController extends Controller
        
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(PaymentDetails $paymentDetails)
     {
         //

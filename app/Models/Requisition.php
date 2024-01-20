@@ -17,5 +17,6 @@ class Requisition extends Model
         'applied_by',
         'approved_by',
         'deduct_monthly',
+        'last_deduction',
         ];
 }

@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $users = User::where('role','!=','admin')->paginate(5);
+    $users = User::where('role','user')->count();
     $request   = Requisition::where('status','=','approved')->where('applied_by','=',auth()->user()->email)->paginate(5);
     $requestP  = Requisition::where('status','=','pending')->where('applied_by','=',auth()->user()->email)->paginate(5);
     $requestD  = Requisition::where('status','=','decline')->where('applied_by','=',auth()->user()->email)->paginate(5);
@@ -33,7 +33,7 @@ Route::get('/dashboard', function () {
     $finance = finance::where('status','=','pending')->paginate(5);
     $financeApproved = finance::where('status','=','approved')->paginate(5);
     
-    $total= PaymentDetails::where('status','successful')->sum('amount');
+    $total= PaymentDetails::all()->sum('amount');
     return view('dashboard',compact('users','total','request','requestP','requestD','requestA','requestPA','requestDA','finance','financeApproved'));
 })->middleware(['auth'])->name('dashboard');
      

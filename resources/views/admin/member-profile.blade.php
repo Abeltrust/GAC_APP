@@ -50,7 +50,7 @@ $('.deleteUser').on('click touchstart tap',function(e) {
 @section('content')
 <div class="container mt-4 px-4 px-md-0">
         <div class="text-center">
-        <img src="{{asset('assets/images/avatar-2.jpg')}}" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
+        <img src="{{ asset('storage/assets/images/' . $user->userImage) }}" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
            <h3>{{$user-> name}}</h3>
             <!-- <div class="mt-2">
                 <span class="badge bg-success py-2">Verified</span>
@@ -64,40 +64,35 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                     class="larg-number" 
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
-                        data-bs-content="<h6></h6>"
-                    >0</span>
-                    <p>Total number of Request</p>
+                        data-bs-content="<h6>{{ number_format($total_count) }}</h6>"
+                    >{{ number_format($total_count) }}</span>
+                    <p>Total Approved Request</p>
                 </div>
-                <div class="col-md-3 card-dashboard">
+                <div class="col-md-3 card-dashboard text-success">
                     <span
                     class="larg-number" 
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
-                        data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
-                        &#8358;{{ number_format(1000000000) }}</span>
-                    <p>Total amount Paid this month</p>
+                        data-bs-content="<h6>&#8358;{{ number_format($paid) }}</h6>">
+                        &#8358;{{ number_format($paid) }}</span>
+                    <p>Total amount Paid</p>
                 </div>
-                <div class="col-md-3 card-dashboard">
+                <div class="col-md-3 card-dashboard text-danger">
                     <span 
                         class="larg-number" 
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
-                        data-bs-content="<h6>&#8358;{{ number_format(1000) }}</h6>">
-                        &#8358;{{ number_format(1000) }}
+                        data-bs-content="<h6>&#8358;{{ number_format($total) }}</h6>">
+                        &#8358;{{ number_format($total) }}
                     </span>
-                    <p>Total amount generated</p>
+                    <p >Outstabding Ballance</p>
                 </div>
             </div>
         <div class="mt-4">
            <div class="d-flex justify-content-between">
              <h4>Requisition Information</h4>  
-             <!-- <div class="mt-2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                   Apply for Loan
-                </button>
-             </div> -->
            </div>
-          @if(is_null($data))
+          @if(is_null($dataM)||is_null($dataF))
            <span>
               No application data
            </span>
@@ -105,34 +100,29 @@ $('.deleteUser').on('click touchstart tap',function(e) {
            <table class="table nowrap table-borderless table-striped w-100">
                 <thead>
                     <tr>
-                        <th>S/N</th>
                         <th>Item </th>
-                        <th>Qnty</th>
                         <th>Amount</th>
-                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                @foreach($data as $index => $d)
+                @foreach($dataM as  $d)
                     <tr>
-                        <td>{{$index+1 }}</td>
                         <td>{{$d -> item}}</td>
-                        <td>{{$d -> quantity}}</td>
                         <td>&#8358;{{$d -> total}} </td>
-                      @if($d -> status == 'approve')
-                        <td><span class="btn-primary text-light p-1 rounded"> Approved </span></td>
-                        @elseif($d -> status =='pending')
-                         <td><span class="btn-warning text-light p-1 rounded"> pending </span></td>
-                         <td><button class="btn-primary text-light p-1 rounded">Aprove</button> </td>
-                         <td><button class="btn-primary text-light p-1 rounded">Decline</button> </td>
-                         @else
-                           <td><span class="btn-danger text-light p-1 rounded"> Declined </span></td>
-                           <td><button class="btn-primary text-light p-1 rounded">Aprove</button><button class="btn-danger mx-1 text-light p-1 rounded">Decline</button> </td>
-                       @endif
-                       
+                        <td>
+                           <a class="btn btn-view " href="{{route('members.profile',$d -> id)}}"  type="button" > View details</a>
+                       </td>
                     </tr>
-                   
+                @endforeach
+                @foreach($dataF as  $df)
+                    <tr>
+                        <td>{{$df -> description}}</td>
+                        <td>&#8358;{{$df -> amount}} </td>
+                        <td>
+                           <a class="btn btn-view " href="{{route('members.profile',$df -> id)}}"  type="button" > View details</a>
+                       </td>
+                    </tr>
                 @endforeach
                 </tbody>
             </table>

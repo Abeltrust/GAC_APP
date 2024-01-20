@@ -16,17 +16,34 @@
   @endif
    @if(auth()->user()->role =='admin')
         <div class="col-md-6">
-          <div class="row gap-4">
+          <div class="row gap-2">
                 <div class="col-md-5 card-dashboard">
                     <span
                     class="larg-number" 
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
-                        data-bs-content="<h6></h6>"
-                    >1</span>
+                        data-bs-content="<h6>{{number_format($users)}}</h6>"
+                    >{{number_format($users)}}</span>
                     <p>Total number of members</p>
                 </div>
                 <div class="col-md-5 card-dashboard">
+                    <span 
+                        class="larg-number text-success" 
+                        data-bs-toggle="popover" 
+                        title="Total amount generated" 
+                        data-bs-content="<h6>&#8358;{{ number_format(0) }}</h6>">
+                        &#8358;{{ number_format(0) }}
+                    </span>
+                    <p> Total amount Deducted</p>
+                </div>
+            </div>
+        </div>
+       
+        
+        <div class="col-md-6  ">
+        <div class="row gap-2">
+
+        <div class="col-md-12 card-dashboard">
                     <span 
                         class="larg-number" 
                         data-bs-toggle="popover" 
@@ -34,22 +51,20 @@
                         data-bs-content="<h6>&#8358;{{ number_format($total) }}</h6>">
                         &#8358;{{ number_format($total) }}
                     </span>
-                    <p>Total amount generated</p>
+                    <p>Total amount genarated</p>
                 </div>
-            </div>
-        </div>
-        <div class="col-md-6 gap-4 d-flex justify-content-end align-items-center mt-4 mt-md-0">
-
-                <button class="btn  btn-custom btn-custom-primary-outline" data-bs-toggle="modal" data-bs-target="#setExcelUploadModal">
+               
+        
+              <!--   <button class="btn  btn-custom btn-custom-primary-outline" data-bs-toggle="modal" data-bs-target="#setExcelUploadModal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.22 20.75H5.78A2.64 2.64 0 0 1 3.25 18v-3a.75.75 0 0 1 1.5 0v3a1.16 1.16 0 0 0 1 1.25h12.47a1.16 1.16 0 0 0 1-1.25v-3a.75.75 0 0 1 1.5 0v3a2.64 2.64 0 0 1-2.5 2.75ZM16 8.75a.74.74 0 0 1-.53-.22L12 5.06L8.53 8.53a.75.75 0 0 1-1.06-1.06l4-4a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06a.74.74 0 0 1-.53.22Z"/><path fill="currentColor" d="M12 15.75a.76.76 0 0 1-.75-.75V4a.75.75 0 0 1 1.5 0v11a.76.76 0 0 1-.75.75Z"/></svg>
                     Upload excel sheet
                 </button>
 
                 <button class="btn btn-custom btn-custom-primary " data-bs-toggle="modal" data-bs-target="#setPaymentRangeModal">
                     Set payment range
-                </button> 
+                </button> -->
         
-         </div>
+         </div> 
        </div>
        @endif
        @if(auth()->user()->role =='user')

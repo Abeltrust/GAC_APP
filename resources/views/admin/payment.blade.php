@@ -119,6 +119,7 @@
                                 
                                 <tr>
                                     <td >{{$m -> applied_by}}</td>
+                                    @if($m -> total > 0)
                                     <td>&#8358;{{ number_format($m -> total) }}</td>
                                     <td>
                                         &#8358;{{ number_format($m->deduct_monthly) }}
@@ -146,13 +147,22 @@
                                       <a class="btn btn-view bg-primary text-light" href="{{route('rdeduct',$m -> id)}}" type="button" > Deduct</a>
                                       <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$m -> id}}"> View</button>
                                     </td>
+                                    @else
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' > 
+                                        <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$m -> id}}"> View</button>
+                                    </td>
+                                   @endif
                                 </tr>
                             @endforeach
                             @foreach($finance as $f)
                                 
                                 <tr>
                                     <td >{{$f -> applied_by}}</td>
-                                    <td>&#8358;{{ number_format($f -> amount) }}</td>
+                                   @if($f -> amount > 0)
+                                   <td>&#8358;{{ number_format($f -> amount) }}</td>
                                     <td>
                                         &#8358;{{ number_format($f->deduct_monthly) }}
                                     </td>
@@ -179,6 +189,14 @@
                                       <a class="btn btn-view bg-primary text-light" href="{{route('fdeduct',$f -> id)}}" type="button" > Deduct</a>
                                       <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$f -> id}}"> View</button>
                                     </td>
+                                   @else
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' > 
+                                        <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$m -> id}}"> View</button>
+                                    </td>
+                                   @endif
                                 </tr>
                             @endforeach
                     @else

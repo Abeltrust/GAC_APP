@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Requisition;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\PaymentDetails;
 
 class RequisitionController extends Controller
 {
@@ -51,11 +52,35 @@ class RequisitionController extends Controller
     public function deduct($id)
     {
         $request = Requisition::find($id);
-    $ballance = $request -> total - $request -> deduct_monthly;
-    $request -> total =  $ballance;
-    $request ->update();
+        if($request -> total >= $request -> deduct_monthly){
+        $ballance = $request -> total - $request -> deduct_monthly;
+        $request -> total =  $ballance;
+        $request ->update();
+        $details = new PaymentDetails();
+        $details -> name    =   $request -> item;
+        $details -> email   =   $request -> applied_by;
+        $details -> staffId =   $request -> applied_by;
+        $details -> count   =   $ballance;
+        $details -> amount  =   $request -> deduct_monthly;
+        $details ->save();
     toast('Deducted successfully!', 'success')->timerProgressBar();
     return redirect()->back();
+        }elseif($request->amount > 0 && $request -> amount <= $request -> deduct_monthly){
+            $ballance = $request -> total - $request -> deduct_monthly;
+            $request -> total = 0;
+            $request ->update();
+            $details = new PaymentDetails();
+            $details -> name    =   $request -> item;
+            $details -> email   =   $request -> applied_by;
+            $details -> staffId =   $request -> applied_by;
+            $details -> count   =   $request -> total;
+            $details -> amount  =   $request -> deduct_monthly;
+            $details ->save();
+        }else{
+            toast('Sorry cannot deduct!', 'error')->timerProgressBar();
+            return redirect()->back();
+        }
+
     }
 
     /**

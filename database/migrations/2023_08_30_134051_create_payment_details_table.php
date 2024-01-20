@@ -13,11 +13,10 @@ return new class extends Migration
     {
         Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->string('scn');
-            $table->string('amount');
-            $table->string('status')->default('declined');
-            $table->string('transaction_date');
-            $table->string('transaction_id');
+            $table->string('name');
+            $table->string('email');
+            $table->string('count');
+            $table->string('staffId');
             $table->timestamps();
         });
     }
