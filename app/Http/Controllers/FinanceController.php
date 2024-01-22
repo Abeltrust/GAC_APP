@@ -28,6 +28,7 @@ class FinanceController extends Controller
         $finance -> description = $request->description;
         $finance -> amount = $request->amount;
         $finance -> deduct_monthly = $request->deduct_monthly;
+        $finance -> last_deduction = now();
         $finance -> save();
         toast('Application send successfully!', 'success')->timerProgressBar();
         return redirect()->back();
@@ -54,6 +55,7 @@ class FinanceController extends Controller
         if($finance -> amount >= $finance -> deduct_monthly){
         $ballance = $finance -> amount - $finance -> deduct_monthly;
         $finance -> amount =  $ballance;
+        $finance -> last_deduction = now();
         $finance -> update();
         $details = new PaymentDetails();
         $details -> name    =   $finance -> description;
@@ -66,6 +68,8 @@ class FinanceController extends Controller
         return redirect()->back();
         }elseif($finance->amount > 0 && $finance -> amount <= $finance -> deduct_monthly){
             $finance -> amount =  0;
+            $finance -> status =  paid;
+            $finance -> last_deduction = now();
             $finance -> update();
             $details = new PaymentDetails();
             $details -> name    =   $finance -> description;

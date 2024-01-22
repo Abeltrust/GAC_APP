@@ -26,6 +26,7 @@ class RequisitionController extends Controller
         $requisition -> status ='pending';
         $requisition -> applied_by = auth()->user()->email;
         $requisition -> approved_by = '';
+        $requisition -> last_deduction = now();
         $requisition -> deduct_monthly = $request->deduct_monthly;
         $requisition ->save();
 
@@ -55,6 +56,7 @@ class RequisitionController extends Controller
         if($request -> total >= $request -> deduct_monthly){
         $ballance = $request -> total - $request -> deduct_monthly;
         $request -> total =  $ballance;
+        $request -> last_deduction = now();
         $request ->update();
         $details = new PaymentDetails();
         $details -> name    =   $request -> item;
@@ -68,6 +70,8 @@ class RequisitionController extends Controller
         }elseif($request->amount > 0 && $request -> amount <= $request -> deduct_monthly){
             $ballance = $request -> total - $request -> deduct_monthly;
             $request -> total = 0;
+            $request -> status = paid;
+            $request -> last_deduction = now();
             $request ->update();
             $details = new PaymentDetails();
             $details -> name    =   $request -> item;
@@ -75,7 +79,7 @@ class RequisitionController extends Controller
             $details -> staffId =   $request -> applied_by;
             $details -> count   =   $request -> total;
             $details -> amount  =   $request -> deduct_monthly;
-            $details ->save();
+            $details -> save();
         }else{
             toast('Sorry cannot deduct!', 'error')->timerProgressBar();
             return redirect()->back();

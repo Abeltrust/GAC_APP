@@ -116,7 +116,7 @@
                 <tbody>
                     @if (!$finance->isEmpty() || !$mortgage -> isEmpty())
                         @foreach($mortgage as $m)
-                                
+                          @if(now()->diffInDays($m->last_deduction) >= 30)
                                 <tr>
                                     <td >{{$m -> applied_by}}</td>
                                     @if($m -> total > 0)
@@ -144,11 +144,13 @@
                                         @endif
                                     </td>
                                     <td>
-                                      <a class="btn btn-view bg-primary text-light" href="{{route('rdeduct',$m -> id)}}" type="button" > Deduct</a>
+                                    <a class="btn btn-view bg-primary text-light" href="{{ route('rdeduct', $m->id) }}" type="button" @if(!$m->last_deduction || now()->diffInDays($m->last_deduction) <= 30) disabled @endif>
+                                      Deduct
+                                    </a>
                                       <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$m -> id}}"> View</button>
                                     </td>
                                     @else
-                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >&#8358;{{ number_format($m -> total) }}</td>
                                     <td class='text-success' >Paid</td>
                                     <td class='text-success' >Paid</td>
                                     <td class='text-success' > 
@@ -156,9 +158,10 @@
                                     </td>
                                    @endif
                                 </tr>
+                            @endif
                             @endforeach
                             @foreach($finance as $f)
-                                
+                               @if(now()->diffInDays($f->last_deduction) >= 30)
                                 <tr>
                                     <td >{{$f -> applied_by}}</td>
                                    @if($f -> amount > 0)
@@ -171,7 +174,7 @@
                                         @if($f->status ==='approved')
                                             <span class="badge bg-success-badge py-2 px-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
-                                                approved
+                                                approved 
                                             </span>
                                         @elseif($f->status ==='pending')
                                             <span class="badge bg-warning-badge py-2 px-3">
@@ -186,11 +189,15 @@
                                         @endif
                                     </td>
                                     <td>
-                                      <a class="btn btn-view bg-primary text-light" href="{{route('fdeduct',$f -> id)}}" type="button" > Deduct</a>
+                                    @if(now()->diffInDays($f->last_deduction) <= 30)
+                                       <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$f -> id}}"> View</button>
+                                      @else
+                                      <a class="btn btn-view bg-primary text-light" href="{{route('fdeduct',$f -> id)}}" type="button"  > Deduct</a>
                                       <button class="btn btn-view btnpaymentView" onclick="printFunction();" type="button" data-bs-toggle="modal"  data-id="{{$f -> id}}"> View</button>
+                                    @endif
                                     </td>
                                    @else
-                                    <td class='text-success' >Paid</td>
+                                    <td class='text-success' >&#8358;{{ number_format($f -> amount) }}</td>
                                     <td class='text-success' >Paid</td>
                                     <td class='text-success' >Paid</td>
                                     <td class='text-success' > 
@@ -198,6 +205,7 @@
                                     </td>
                                    @endif
                                 </tr>
+                               @endif
                             @endforeach
                     @else
                         <tr>
