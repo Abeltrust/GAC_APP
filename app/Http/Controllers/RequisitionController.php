@@ -17,12 +17,14 @@ class RequisitionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $amount =$request->amount;
+        $tenpercent = $amount * 0.1;
+        $totalaAmount = $amount + $tenpercent;
         $requisition = new Requisition();
         $requisition -> item =$request -> Item;
         $requisition -> quantity =$request -> quantity;
         $requisition -> unitPrice =$request -> unit_price;
-        $requisition -> total =$request -> amount;
+        $requisition -> total =$totalaAmount;
         $requisition -> status ='pending';
         $requisition -> applied_by = auth()->user()->email;
         $requisition -> approved_by = '';
@@ -48,7 +50,22 @@ class RequisitionController extends Controller
         toast('Application Approved successfully!', 'success')->timerProgressBar();
         return redirect()->back();
     }
+    public function decline($id)
+    {
+        $requisition = Requisition::find($id);
+        $requisition -> status ='declined';
+        $requisition -> approved_by = auth()->user()->email;
+        $requisition ->update();
 
+        toast('Application Declined successfully!', 'success')->timerProgressBar();
+        return redirect()->back();
+    }
+    public function details($id)
+    {
+        $requisition = Requisition::find($id);
+    
+        return  $requisition;
+    }
   
     public function deduct($id)
     {

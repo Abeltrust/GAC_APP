@@ -21,13 +21,17 @@ class FinanceController extends Controller
     
     public function store(Request $request)
     {
+        $amount =$request->amount;
+        $tenpercent = $amount * 0.1;
+        $totalaAmount = $amount + $tenpercent;
         $finance = new finance();
         $finance -> applied_by= auth()->user()->email;
         $finance -> approved_by= '';
         $finance -> status='pending';
         $finance -> description = $request->description;
-        $finance -> amount = $request->amount;
+        $finance -> amount = $totalaAmount;
         $finance -> deduct_monthly = $request->deduct_monthly;
+        //$finance -> start_month  = $request->start_month;
         $finance -> last_deduction = now();
         $finance -> save();
         toast('Application send successfully!', 'success')->timerProgressBar();
@@ -45,9 +49,25 @@ class FinanceController extends Controller
         return redirect()->back();
     }
 
+    public function decline($id)
+    {
+        $finance = finance::find($id);
+        $finance -> status ='decline';
+        $finance -> approved_by = auth()->user()->email;
+        $finance ->update();
+
+        toast('Application Declined successfully!', 'success')->timerProgressBar();
+        return redirect()->back();
+    }
     /**
      * Show the form for editing the specified resource.
      */
+    public function details($id)
+    {
+        $finance = finance::find($id)->first();
+         //dd($finance);
+        return $finance ;
+    }
     public function deduct( $id)
     {
         $finance = finance::find($id);

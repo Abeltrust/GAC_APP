@@ -1,4 +1,36 @@
 
+    document.addEventListener("DOMContentLoaded", function() {
+        $('.btnfdetails').on('click touchstart tap',function(e) {
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    
+    $.ajax({
+        type: 'GET',
+        async: false,
+        url: '/fdetail/'+id,
+        success: function(response) {
+            $('#viewDesription').text(description);
+            $('#viewAmount').text(response.amount);
+            $('#viewDeduct_monthly').val(response.deduct_monthly);
+            $('#viewLastdeduction').append('<strong>'+response.amount+'</strong>');
+             ('.applied_by').text(response.applied_by);
+            $('.applied_by').text(response.applied_by);
+           if (response.status ==='successful') {
+            document.querySelector('.statusSuccess').style.display = 'block';       
+           }else if(response.status ==='pending'){
+            document.querySelector('.statusPending').style.display ='block'; 
+           } else{
+            document.querySelector('.statusDecline').style.display ='block'; 
+           }
+        },
+        error: function(response) {
+            alert(response.responseText);
+        }
+    });
+    $('#financialDetails').modal('show');
+});
+
+});
 document.addEventListener("DOMContentLoaded", function() {
 $('.printModalContent').click(function(e) {
     e.preventDefault();

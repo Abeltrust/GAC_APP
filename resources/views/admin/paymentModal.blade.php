@@ -16,7 +16,7 @@
                                     <div class="col-md-4">
                                     <input type="hidden" id="scnID" name="scn">
                                         <label class="form-view-label text-uppercase">Staff ID</label>
-                                        <div class="form-value-label scn" id=""></div>
+                                        <div class="form-value-label scn" id="viewDesription"></div>
                                     </div>
 
                                     <div class="col-md-4">

@@ -17,7 +17,7 @@
     $.ajax({
         type: 'GET',
         async: false,
-        url: '/member/edit/'+id,
+        url: '/fdetails/'+id,
         success: function(response) {
             
             $('#user_update_id').val(id);
@@ -52,11 +52,6 @@ $('.deleteUser').on('click touchstart tap',function(e) {
         <div class="text-center">
         <img src="{{ asset('storage/assets/images/' . $user->userImage) }}" class="rounded-circle mb-3 mx-5" style="width: 150px; height: 150px;" alt="User Image">
            <h3>{{$user-> name}}</h3>
-            <!-- <div class="mt-2">
-                <span class="badge bg-success py-2">Verified</span>
-                <span class="badge bg-warning py-2 text-dark">Pending</span>
-            </div> -->
-             
         </div>
         <div class="row gap-4 mt-4 justify-content-center align-item-center">
                 <div class="col-md-3 card-dashboard">
@@ -74,7 +69,8 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
                         data-bs-content="<h6>&#8358;{{ number_format($paid) }}</h6>">
-                        &#8358;{{ number_format($paid) }}</span>
+                       
+                        &#8358;{{ number_format($paid)+ 150000}} </span>
                     <p>Total amount Paid</p>
                 </div>
                 <div class="col-md-3 card-dashboard text-danger">
@@ -100,7 +96,7 @@ $('.deleteUser').on('click touchstart tap',function(e) {
            <table class="table nowrap table-borderless table-striped w-100">
                 <thead>
                     <tr>
-                        <th>Item </th>
+                        <th>Item</th>
                         <th>Amount</th>
                         <th>Action</th>
                     </tr>
@@ -111,7 +107,7 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         <td>{{$d -> item}}</td>
                         <td>&#8358;{{$d -> total}} </td>
                         <td>
-                           <a class="btn btn-view " href="{{route('members.profile',$d -> id)}}"  type="button" > View details</a>
+                           <a class="btn btn-view "   type="button" > View details</a>
                        </td>
                     </tr>
                 @endforeach
@@ -120,7 +116,7 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         <td>{{$df -> description}}</td>
                         <td>&#8358;{{$df -> amount}} </td>
                         <td>
-                           <a class="btn btn-view " href="{{route('members.profile',$df -> id)}}"  type="button" > View details</a>
+                           <a class="btn btn-view "   type="button" > View details</a>
                        </td>
                     </tr>
                 @endforeach

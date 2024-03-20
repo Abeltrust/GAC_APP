@@ -118,7 +118,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -151,7 +151,7 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                      <button class="btn btn-view btnfdetails" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                       <a class="btn btn-peimary bg-success text-light" href="{{route('approve',$f -> id)}}" type="button" > Approve</a>
                                       <a class="btn btn-view bg-danger text-light" href="{{route('decline',$f -> id)}}"  type="button" > Decline</a>
                               @else
@@ -201,13 +201,13 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Approved {{$r->status}}
                                     </span>
-                                    <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
+                                    <a class="btn btn-view " href="{{route('members.profile'.user->id)}}"  type="button" > View profile</a>
                                 @elseif($rp->status ==='pending')
                                     <span class="badge bg-warning-badge bg-warning py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
                                         Pending
                                     </span>
-                                    <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
+                                    <a class="btn btn-view " href="{{route('members.profile')}}"  type="button" > View profile</a>
                                 @else
                                 <span class="badge bg-danger-badge py-2 px-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 15 15"><path fill="currentColor" d="M9.875 7.5a2.375 2.375 0 1 1-4.75 0a2.375 2.375 0 0 1 4.75 0Z"/></svg>
@@ -217,7 +217,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -279,7 +279,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -344,9 +344,9 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$rpA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$rpA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                <a class="btn btn-view bg-success text-light" href="{{route('approve',$rpA -> id)}}" type="button" > Approve</a>
-                               <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                               <a class="btn btn-view bg-danger text-light" href="{{route('decline',$rpA -> id)}}" type="button" > Decline</a>
                                @else
                                 -
                                @endif
@@ -358,7 +358,7 @@
                                 <tr>
                                     <td>{{$f->description}}</td>
                                     <td>{{$f->applied_by}}</td>
-                                    <td>&#8358;{{ number_format($f->amount)}} finance</td>
+                                    <td>&#8358;{{ number_format($f->amount)}} </td>
                                     <td>
                                     @if($f->status ==='approved')
                                     <span class="badge bg-success-badge py-2 px-3">
@@ -379,9 +379,9 @@
                                     </td>
                                     <td>
                                     @if(auth()->user()-> role==='admin')
-                                       <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
-                                       <a class="btn btn-view bg-success text-light" href="{{route('fapprove',$f -> id)}}" type="button" > Approve</a>
-                                       <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                                       <button class="btn btn-view btnfdetails" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                                       <a class="btn btn-view bg-success text-light" href="{{route('fapprove', $f -> id)}}" type="button" > Approve</a>
+                                       <a class="btn btn-view bg-danger text-light" href="{{route('decline',$f -> id)}}" type="button" > Decline</a>
                                @else
                                 -
                                @endif
@@ -443,7 +443,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$rA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$rA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -476,7 +476,7 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnpaymentView" data-id="{{$fa -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                      <button class="btn btn-view btnfdetails" data-id="{{$fa -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                     
                               @else
                                -
@@ -539,7 +539,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnpaymentView" data-id="{{$rDA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                               <button class="btn btn-view btnrdetails" data-id="{{$rDA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -572,9 +572,9 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnpaymentView" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#" > View</button>
+                                      <button class="btn btn-view btnfdetails" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                       <a class="btn btn-view bg-success text-light" href="{{route('fapprove',$f -> id)}}" type="button" > Approve</a>
-                                      <a class="btn btn-view bg-danger text-light" href=""  type="button" > Decline</a>
+                                      <a class="btn btn-view bg-danger text-light" href="{{route('approve',$rpA -> id)}}" type="button" > Decline</a>
                               @else
                                -
                               @endif

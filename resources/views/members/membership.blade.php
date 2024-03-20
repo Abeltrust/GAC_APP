@@ -18,7 +18,7 @@
                         data-bs-toggle="popover" 
                         title="Total amount generated" 
                         data-bs-content="<h6>&#8358;{{ number_format($total) }}</h6>">
-                        &#8358;{{ number_format($total) }}</span>
+                        &#8358;{{ number_format($total + 150000 )}}</span>
                     <p class="text-danger">Outstanding Ballance</p>
           </div>
           <div class="col-md-4 mt-3 justify-content-evenly">
@@ -87,7 +87,6 @@
                 </tbody>
             </table>
             @endif
-            
         </div>
     </div>
     @include('members.modal')
@@ -95,5 +94,4 @@
 @section('footer')
  @include('layouts.app-footer')
 @endsection
-
 

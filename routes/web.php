@@ -55,12 +55,16 @@ Route::middleware(['auth','hasPermission'])->group(function () {
 
     Route::get('/receipt/{id}', [MembershipController::class, 'receipt'])->name('receipt');
     Route::post('/application',[RequisitionController::class,'store'])->name('application.store');
+    Route::get('/decline/{status}',[RequisitionController::class,'decline'])->name('decline');
     Route::get('/approve/{status}',[RequisitionController::class,'approve'])->name('approve');
     Route::get('/rdeduct/{amount}',[RequisitionController::class,'deduct'])->name('rdeduct');
+    Route::get('/rdetail/{amount}',[RequisitionController::class,'detail'])->name('rdetail');
 
     Route::post('/finance/store', [FinanceController::class, 'store'])->name('finance.store');
     Route::get('/fapprove/{status}', [FinanceController::class, 'approve'])->name('fapprove');
+    Route::get('/fdecline/{status}',[FinanceController::class,'decline'])->name('fdecline');
     Route::get('/fdeduct/{amount}', [FinanceController::class, 'deduct'])->name('fdeduct');
+    Route::get('/fdetail/{id}', [FinanceController::class, 'details'])->name('fdetail');
 });
 
     Route::middleware(['auth','hasPermission'])->group(function () {

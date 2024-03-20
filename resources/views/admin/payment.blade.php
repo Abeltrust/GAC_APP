@@ -10,19 +10,13 @@
     $.ajax({
         type: 'GET',
         async: false,
-        url: '/payment/view/'+id,
+        url: '/fdetail/'+id,
         success: function(response) {
-            $('#scnID').val(response.scn);
-            $('#amount').val(response.amount);
-            $('#yearOfCall').val(response.yoc);
-            $('#transaction_date').val(response.transaction_date);
-            $('#transaction_id').val(response.transaction_id);
-            $('#status').val(response.status);
             $('.amount').text(response.amount);
             $('.transaction_date').text(response.amount);
-            $('.scn').text(response.scn);
+            $('.scn').text(response.applied_by);
             $('.yearOfCall').text(response.yoc);
-            $('.transaction_id').text(response.transaction_id);
+            $('.transaction_id').text(response.last_deduction);
             $('.transaction_date').text(response.transaction_date);
            if (response.status ==='successful') {
             document.querySelector('.statusSuccess').style.display = 'block';       

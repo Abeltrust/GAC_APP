@@ -34,10 +34,20 @@
             </div>
           </div>
           <div class="row mb-3">
-            <div class="col-md-12">
-              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Amount to deduct monthly') }}</label>
+            <div class="col-md-6">
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Amount to deduct') }}</label>
               <input id="deduct" type="number" class="form-control @error('deduct') is-invalid @enderror" name="deduct_monthly" value="{{ old('name') }}" required autocomplete="name" autofocus>
               @error('deduct_monthly')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+       
+            <div class="col-md-6">
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Start Month') }}</label>
+              <input id="start_month" type="number" class="form-control @error('start_month') is-invalid @enderror" name="deduct_month" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('start_month')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
@@ -103,13 +113,7 @@
           </div>
 
           <div class="row mb-3">
-            <div class="col-md-12">
-              <label for="amount" class="col-form-label">{{ __('Amount') }}</label>
-              <input id="amount" type="number" class="form-control" name="amount" readonly>
-            </div>
-          </div>
-          <div class="row mb-3">
-            <div class="col-md-12">
+            <div class="col-md-6">
               <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Amount to deduct monthly') }}</label>
               <input id="deduct" type="number" class="form-control @error('deduct') is-invalid @enderror" name="deduct_monthly" value="{{ old('name') }}" required  autofocus>
               @error('deduct')
@@ -117,6 +121,21 @@
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
+            </div>
+            <div class="col-md-6">
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Start Month') }}</label>
+              <input id="start_monthly" type="number" class="form-control @error('start_monthly') is-invalid @enderror" name="start_month" value="{{ old('start_monthly') }}" required autocomplete="name" autofocus>
+              @error('start_monthly')
+              <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+              </span>
+              @enderror
+            </div>
+          </div>
+            <div class="row mb-3">
+            <div class="col-md-12">
+              <label for="amount" class="col-form-label">{{ __('Amount') }}</label>
+              <input id="amount" type="number" class="form-control" name="amount" readonly>
             </div>
           </div>
           <div class="modal-footer">
@@ -128,6 +147,8 @@
     </div>
   </div>
 </div>
+
+
 
 <script>
   function calculateAmount() {

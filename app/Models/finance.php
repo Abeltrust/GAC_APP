@@ -15,5 +15,6 @@ class finance extends Model
         'approved_by',
         'applied_by',
         'last_deduction',
+        'start_month',
         'status'];
 }

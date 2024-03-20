@@ -44,7 +44,7 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ml-4">
+            <x-primary-button class="ml-4 btn-py">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
@@ -251,7 +251,7 @@
                                 
                                 <div class="row mb-3">
                                     <div class="col-md-12 ">
-                                        <button type="submit" class="btn btn-primary mb-3 w-100">Register</button>
+                                        <button type="submit" class="btn btn-py btn-primary mb-3 w-100">Register</button>
                                     </div>
                                 </div>
                                 
