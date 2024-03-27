@@ -30,6 +30,7 @@ class RequisitionController extends Controller
         $requisition -> approved_by = '';
         $requisition -> last_deduction = now();
         $requisition -> deduct_monthly = $request->deduct_monthly;
+        $requisition -> start_month  = $request -> start_monthly;
         $requisition ->save();
 
         toast('Application send successfully!', 'success')->timerProgressBar();

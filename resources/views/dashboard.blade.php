@@ -1,4 +1,41 @@
 @extends('layouts.admin')
+<script type="text/javascript" defer>
+    document.addEventListener("DOMContentLoaded", function() {
+        $('.btn-info-view').on('click touchstart tap',function(e) {
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    
+    $.ajax({
+        type: 'GET',
+        async: false,
+        url: '/fdetail/'+id,
+        success: function(response) {
+            $('.amount').text(response.amount);
+            $('.transaction_date').text(response.amount);
+            $('.scn').text(response.applied_by);
+            $('.yearOfCall').text(response.yoc);
+            $('.transaction_id').text(response.last_deduction);
+            $('.transaction_date').text(response.transaction_date);
+        //    if (response.status ==='successful') {
+        //     document.querySelector('.statusSuccess').style.display = 'block';       
+        //    }else if(response.status ==='pending'){
+        //     document.querySelector('.statusPending').style.display ='block'; 
+        //    } else{
+        //     document.querySelector('.statusDecline').style.display ='block'; 
+        //    }
+        },
+        error: function(response) {
+            alert(response.responseText);
+        }
+    });
+    $('.viewPaymentDetailsModal').modal('show');
+});
+
+});
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+
 @section('content')
 <div class="container mt-5 px-4 px-md-0">
 <div class="row">
@@ -53,17 +90,6 @@
                     </span>
                     <p>Total amount genarated</p>
                 </div>
-               
-        
-              <!--   <button class="btn  btn-custom btn-custom-primary-outline" data-bs-toggle="modal" data-bs-target="#setExcelUploadModal">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M18.22 20.75H5.78A2.64 2.64 0 0 1 3.25 18v-3a.75.75 0 0 1 1.5 0v3a1.16 1.16 0 0 0 1 1.25h12.47a1.16 1.16 0 0 0 1-1.25v-3a.75.75 0 0 1 1.5 0v3a2.64 2.64 0 0 1-2.5 2.75ZM16 8.75a.74.74 0 0 1-.53-.22L12 5.06L8.53 8.53a.75.75 0 0 1-1.06-1.06l4-4a.75.75 0 0 1 1.06 0l4 4a.75.75 0 0 1 0 1.06a.74.74 0 0 1-.53.22Z"/><path fill="currentColor" d="M12 15.75a.76.76 0 0 1-.75-.75V4a.75.75 0 0 1 1.5 0v11a.76.76 0 0 1-.75.75Z"/></svg>
-                    Upload excel sheet
-                </button>
-
-                <button class="btn btn-custom btn-custom-primary " data-bs-toggle="modal" data-bs-target="#setPaymentRangeModal">
-                    Set payment range
-                </button> -->
-        
          </div> 
        </div>
        @endif
@@ -118,7 +144,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                               <button class="btn btn-view btnpaymentView"  type="button" data-bs-toggle="modal"  data-id="{{$r -> id}}"> View details</button>
                                @else
                                 -
                                @endif
@@ -151,8 +177,8 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnfdetails" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
-                                      <a class="btn btn-peimary bg-success text-light" href="{{route('approve',$f -> id)}}" type="button" > Approve</a>
+                                   <button class="btn btn-view btnpaymentView"  type="button" data-bs-toggle="modal"  data-id="{{$r -> id}}"> View details</button>
+                                    <a class="btn btn-peimary bg-success text-light" href="{{route('approve',$f -> id)}}" type="button" > Approve</a>
                                       <a class="btn btn-view bg-danger text-light" href="{{route('decline',$f -> id)}}"  type="button" > Decline</a>
                               @else
                                -
@@ -217,7 +243,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                               <button class="btn btn-view btnpaymentView"  type="button" data-bs-toggle="modal"  data-id="{{$r -> id}}"> View details</button>
                                @else
                                 -
                                @endif
@@ -279,7 +305,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnrdetails" data-id="{{$r -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                               <button class="btn btn-view btnpaymentView"  type="button" data-bs-toggle="modal"  data-id="{{$r -> id}}"> View details</button>
                                @else
                                 -
                                @endif
@@ -443,7 +469,7 @@
                             </td>
                              <td>
                                @if(auth()->user()-> role==='admin')
-                               <button class="btn btn-view btnrdetails" data-id="{{$rA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                               <button class="btn btn-view btn-info-view" data-id="{{$rA -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
                                @else
                                 -
                                @endif
@@ -476,8 +502,8 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnfdetails" data-id="{{$fa -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
-                                    
+                                   <button class="btn btn-view btn-info-view"  type="button" data-bs-toggle="modal"  data-id="{{$rA -> id}}"> View details</button>
+                              
                               @else
                                -
                               @endif
@@ -572,7 +598,7 @@
                                    </td>
                                    <td>
                                    @if(auth()->user()-> role==='admin')
-                                      <button class="btn btn-view btnfdetails" data-id="{{$f -> id}}" type="button" data-bs-toggle="modal" data-bs-target="#requisitionDetails" > View</button>
+                                   <button class="btn btn-view btnpaymentView"  type="button" data-bs-toggle="modal"  data-id="{{$f -> id}}"> View details</button>
                                       <a class="btn btn-view bg-success text-light" href="{{route('fapprove',$f -> id)}}" type="button" > Approve</a>
                                       <a class="btn btn-view bg-danger text-light" href="{{route('approve',$rpA -> id)}}" type="button" > Decline</a>
                               @else
@@ -590,6 +616,6 @@
       
     @endif
 </div>
-@include('members.modal')
+@include('members.modals')
 @include('admin.modals')
 @endsection

@@ -76,7 +76,7 @@
                         {{$user -> Department}}
                     </td>
                     <td>
-                      <a class="btn btn-view " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
+                      <a class="btn btn-success " href="{{route('members.profile',$user -> id)}}"  type="button" > View profile</a>
                     </td>
                   </tr>
                 @endforeach

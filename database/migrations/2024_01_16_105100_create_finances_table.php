@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('description');
             $table->string('amount');
-            $table->string('deduct_monthly');
-            $table->timestamp('last_deduction')->nullable();
             $table->string('status');
             $table->string('applied_by');
             $table->string('approved_by')->nullable();
+            $table->string('deduct_monthly');
+            $table->date('start_month');
+            $table->timestamp('last_deduction')->nullable();
             $table->timestamps();
         });
     }

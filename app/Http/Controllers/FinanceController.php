@@ -21,6 +21,8 @@ class FinanceController extends Controller
     
     public function store(Request $request)
     {
+       // dd($request->all());
+
         $amount =$request->amount;
         $tenpercent = $amount * 0.1;
         $totalaAmount = $amount + $tenpercent;
@@ -31,7 +33,7 @@ class FinanceController extends Controller
         $finance -> description = $request->description;
         $finance -> amount = $totalaAmount;
         $finance -> deduct_monthly = $request->deduct_monthly;
-        //$finance -> start_month  = $request->start_month;
+        $finance -> start_month  = $request->start_monthly;
         $finance -> last_deduction = now();
         $finance -> save();
         toast('Application send successfully!', 'success')->timerProgressBar();

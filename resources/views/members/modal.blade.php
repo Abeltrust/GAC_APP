@@ -5,8 +5,6 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Requisition Form</h5>
         <button type="button" class="btn-close btn-bg-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
       <form method="POST" action="{{route('finance.store')}}" >
@@ -19,6 +17,7 @@
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
+              
               @enderror
             </div>
           </div>
@@ -31,7 +30,7 @@
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
-            </div>
+            </div>  
           </div>
           <div class="row mb-3">
             <div class="col-md-6">
@@ -45,14 +44,14 @@
             </div>
        
             <div class="col-md-6">
-              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Start Month') }}</label>
-              <input id="start_month" type="number" class="form-control @error('start_month') is-invalid @enderror" name="deduct_month" value="{{ old('name') }}" required autocomplete="name" autofocus>
-              @error('start_month')
+              <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Start Month1111') }}</label>
+              <input  type="date" class="form-control @error('start_monthly') is-invalid @enderror" name="start_monthly" value="{{ old('name') }}" required autocomplete="name" autofocus>
+              @error('start_monthly')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
               </span>
               @enderror
-            </div>
+            </div> 
           </div>
       </div>
           <div class="modal-footer">
@@ -72,8 +71,6 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Requisition Form</h5>
         <button type="button" class="btn-close btn-bg-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          <span aria-hidden="true">&times;</span>
-        </button>
       </div>
       <div class="modal-body">
         <form method="POST" action="{{route('application.store')}}" >
@@ -124,7 +121,7 @@
             </div>
             <div class="col-md-6">
               <label for="deduct" class="col-md-12 col-form-label text-md-start">{{ __('Start Month') }}</label>
-              <input id="start_monthly" type="number" class="form-control @error('start_monthly') is-invalid @enderror" name="start_month" value="{{ old('start_monthly') }}" required autocomplete="name" autofocus>
+              <input id="start_monthly" type="date" class="form-control @error('start_monthly') is-invalid @enderror" name="start_monthly" value="{{ old('start_monthly') }}" required autocomplete="name" autofocus>
               @error('start_monthly')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

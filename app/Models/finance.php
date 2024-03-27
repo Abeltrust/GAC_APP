@@ -11,10 +11,11 @@ class finance extends Model
     protected $fillable = [
         'description',
         'amount', 
-        'deduct_monthly',
         'approved_by',
         'applied_by',
-        'last_deduction',
+        'deduct_monthly',
         'start_month',
-        'status'];
+        'last_deduction',
+        'status',
+    ];
 }

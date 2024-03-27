@@ -1,6 +1,6 @@
 
 
-<div class="modal fade my-5" id="paymentDetails" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade my-5" id="financialDetails" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-top modal-md rounded">
         <div class="modal-content">
                 <div class="modal-body">
@@ -36,7 +36,7 @@
                                 <label for="" class="small">Date of transaction</label>
                             </div>
                             <div class="font-weight-bold small">
-                                <strong>1223323</strong>
+                                <strong>1223323</strong> 
                             </div>
                         </div>
                     </div>

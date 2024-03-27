@@ -8,6 +8,73 @@
     }
 </style> -->
 @endsection
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous" defer></script>
+<script type="text/javascript" defer>
+ document.addEventListener("DOMContentLoaded", function() {
+        $('.btnfdetails').on('click touchstart tap',function(e) {
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    
+    $.ajax({
+        type: 'GET',
+        async: false,
+        url: '/fdetail/'+id,
+        success: function(response) {
+            $('.viewDesription').text(description);
+            $('.viewAmount').text(response.amount);
+            $('.viewDeduct_monthly').text(response.deduct_monthly);
+             ('#applied_by').text(response.applied_by);
+            $('.applied_by').text(response.applied_by);
+           if (response.status ==='successful') {
+            document.querySelector('.statusSuccess').style.display = 'block';       
+           }else if(response.status ==='pending'){
+            document.querySelector('.statusPending').style.display ='block'; 
+           } else{
+            document.querySelector('.statusDecline').style.display ='block'; 
+           }
+        },
+        error: function(response) {
+            alert(response.responseText);
+        }
+    });
+    $('#financialDetails').modal('show');
+});
+
+});
+</script>
+<script type="text/javascript" defer>
+ document.addEventListener("DOMContentLoaded", function() {
+        $('.btn-view-details').on('click touchstart tap',function(e) {
+    e.preventDefault();
+    let id = $(this).attr('data-id');
+    
+    $.ajax({
+        type: 'GET',
+        async: false,
+        url: '/fdetail/'+id,
+        success: function(response) {
+            $('.viewDesription').text(description);
+            $('.viewAmount').text(response.amount);
+            $('.viewDeduct_monthly').text(response.deduct_monthly);
+             ('#applied_by').text(response.applied_by);
+            $('.applied_by').text(response.applied_by);
+           if (response.status ==='successful') {
+            document.querySelector('.statusSuccess').style.display = 'block';       
+           }else if(response.status ==='pending'){
+            document.querySelector('.statusPending').style.display ='block'; 
+           } else{
+            document.querySelector('.statusDecline').style.display ='block'; 
+           }
+        },
+        error: function(response) {
+            alert(response.responseText);
+        }
+    });
+    $('#paymentDetails').modal('show');
+});
+
+});
+</script>
 <script>
      document.addEventListener("DOMContentLoaded", function() {
      $('.editUser').on('click touchstart tap',function(e) {
@@ -70,7 +137,7 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         title="Total amount generated" 
                         data-bs-content="<h6>&#8358;{{ number_format($paid) }}</h6>">
                        
-                        &#8358;{{ number_format($paid)+ 150000}} </span>
+                        &#8358;{{ number_format($paid) }} </span>
                     <p>Total amount Paid</p>
                 </div>
                 <div class="col-md-3 card-dashboard text-danger">
@@ -107,7 +174,8 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         <td>{{$d -> item}}</td>
                         <td>&#8358;{{$d -> total}} </td>
                         <td>
-                           <a class="btn btn-view "   type="button" > View details</a>
+                        <button class="btn btn-view btn-view-details"  href=""  data-id="{{$d -> id}}" type="button"> View details</button>
+                          
                        </td>
                     </tr>
                 @endforeach
@@ -116,7 +184,8 @@ $('.deleteUser').on('click touchstart tap',function(e) {
                         <td>{{$df -> description}}</td>
                         <td>&#8358;{{$df -> amount}} </td>
                         <td>
-                           <a class="btn btn-view "   type="button" > View details</a>
+                        <button class="btn btn-view btn-view-details"  href=""  data-id="{{$df -> id}}" type="button"> View details</button>
+                              
                        </td>
                     </tr>
                 @endforeach
@@ -125,6 +194,5 @@ $('.deleteUser').on('click touchstart tap',function(e) {
             @endif
         </div>
     </div>
-@include('admin.modals')
-@include('admin.paymentModal')
+@include('admin.infoModal')
 @endsection

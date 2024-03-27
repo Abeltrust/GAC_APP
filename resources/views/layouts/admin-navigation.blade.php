@@ -110,6 +110,9 @@
                                
                         @if(auth()->user()->role ==='user')
                         <li class="nav-item">
+                            <a href="{{route('dashboard')}}" class="nav-link {{'dashboard'== request()->path() ? 'active' : ''}}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('notification')}}"  class="nav-link {{'notification'== request()->path()?'active':''}}">Notification</a>
                         </li>
                         <li class="nav-item">

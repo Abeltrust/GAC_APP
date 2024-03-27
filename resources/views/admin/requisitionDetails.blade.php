@@ -1,56 +1,9 @@
-{{-- <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout> --}}
 
 @extends('layouts.admin')
-
-<script>
-    // $(document).ready(function() {
-    //     var max_fields      = 10; //maximum input boxes allowed
-    //     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    //     var add_button      = $(".add_field_button"); //Add button ID
-    
-    //     var x = 1; //initlal text box count
-        
-        
-    // $(add_button).click(function(e){ //on add input button click
-    //         e.preventDefault();
-    //         if(x < max_fields){ //max input box allowed
-    //             //text box increment
-    //         $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
-    //         x++; 
-    //     }
-    // });
-    
-    //     // $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        
-    //     //     e.preventDefault(); 
-    //     //     $(this).parent('div').remove(); 
-    //     //     x--;
-    //     // })
-    // });
-</script>
 @section('content')
 
 <div class="container mt-5 px-4 px-md-0">
-    
-
     <div class="row mt-4">
-
         <div class="d-flex align-items-center justify-content-between mb-4">
             <h2 class="table-title-2">Adetomiwa Adeleke</h2>
             <div class="gap-3 w-50 d-flex justify-content-end">
@@ -65,7 +18,7 @@
             
 
             <div class="col-md-2">
-                <label class="profile-view-label">SCN</label>
+                <label class="profile-view-label">Detai,</label>
                 <div class="profile-value-label">367829101</div>
             </div>
 

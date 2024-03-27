@@ -360,12 +360,13 @@
                     <div class="text-sm text-gray-700 dark:text-gray-400">
                     <div class="row justify-content-between ms-8 me-8 mb-4 mx-5">
                    
-                        <div class="col-md-6">
+                        <div class="col-md-6"> 
                             <div class="mb-2">
                                 <label for="" class="small">Name</label>
+                                <div class="viewDesription" for="" id='applied_by' class="small "></div>
                             </div>
-                            <div class="font-weight-bold small">
-                            <label for="" class="small applied_by"></label>
+                            <div class="font-weight-bold small applied_by">
+ 
                             </div>
                         </div>
                     </div>

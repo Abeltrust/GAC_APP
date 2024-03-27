@@ -83,6 +83,11 @@ class RegisteredUserController extends Controller
             $user -> nextOfKinAddress   = $request ->nextOfKinAddress;
             $user -> role   = 'admin';
             $user ->save();
+            event(new Registered($user));
+        
+            Auth::login($user);
+            toast('Registration Successful! You\'re Welcome..', 'success');
+            return redirect('/dashboard') ->with('success','Registered Successfully');
             }else{
                 $user = new User();
             $user -> name           = $request -> name;
@@ -99,12 +104,14 @@ class RegisteredUserController extends Controller
             $user -> nextOfKinAddress   = $request ->nextOfKinAddress;
             $user -> role   = 'user';
             $user ->save();
-            }
+
             event(new Registered($user));
         
             Auth::login($user);
             toast('Registration Successful! You\'re Welcome..', 'success');
             return redirect('/profile') ->with('success','Registered Successfully');
+            }
+            
         }else{
             toast('User already exist', 'error')->timerProgressBar();
             return redirect()->route('register');
